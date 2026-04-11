@@ -1,1420 +1,234 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>薗田 | Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Zen+Kaku+Gothic+New:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #1a1410;
-    --parchment: #f5f0e8;
-    --warm-white: #faf8f4;
-    --sage: #7a9e7e;
-    --rust: #b85c38;
-    --gold: #c9a84c;
-    --muted: #8a8078;
-    --light-sage: #e8f0e8;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--warm-white);
-    color: var(--ink);
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.4;
-  }
-
-  /* ── NAVIGATION ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(250,248,244,0.9);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(26,20,16,0.08);
-  }
-
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--ink);
-    letter-spacing: 0.05em;
-  }
-
-  .nav-logo span {
-    font-style: normal;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: block;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-weight: 300;
-  }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 2.5rem;
-  }
-
-  nav ul a {
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-
-  nav ul a:hover { color: var(--ink); }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    overflow: hidden;
-  }
-
- .hero-left {
-    background: var(--ink);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* 👈 center から flex-start に変更して上寄にする */
-    padding: 4rem 4rem 4rem 5rem; /* 👈 最初の数値（上余白）を 8rem から 4rem などに減らす */
-    position: relative;
-    overflow: hidden;
-}
-
-  .hero-left::before {
-    content: '看';
-    position: absolute;
-    font-family: 'Noto Serif JP', serif;
-    font-size: 28rem;
-    color: rgba(255,255,255,0.03);
-    right: -4rem;
-    bottom: -6rem;
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .hero-tag {
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-
-  .hero-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    color: var(--parchment);
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-
-  .hero-name-jp {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 1rem;
-    color: var(--muted);
-    letter-spacing: 0.3em;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.5s forwards;
-  }
-
-  .hero-desc {
-    font-size: 0.85rem;
-    line-height: 2;
-    color: rgba(245,240,232,0.65);
-    max-width: 28rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.7s forwards;
-  }
-
-  .hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.9s forwards;
-  }
-
-  .badge {
-    border: 1px solid rgba(201,168,76,0.4);
-    color: var(--gold);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    padding: 0.35rem 0.9rem;
-    border-radius: 2px;
-  }
-
-  .hero-right {
-    background: var(--parchment);
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 中央寄せに変更 */
-    align-items: center;
-    padding: 2rem;
-    position: relative;
-  }
-
-  .hero-right::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 70%;
-    height: 70%;
-    background: radial-gradient(ellipse at top right, rgba(122,158,126,0.15) 0%, transparent 70%);
-  }
-
-  .hero-right::after {
-    content: 'Portfolio\A2025';
-    white-space: pre;
-    position: absolute;
-    top: 6rem;
-    right: 3rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-align: right;
-    opacity: 0;
-    animation: fadeIn 1s 1.2s forwards;
-  }
-
-  .stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.1rem;
-    margin-bottom: 2rem;
-  }
-
-  .stat-item {
-    padding: 1.8rem;
-    background: white;
-    opacity: 0;
-    animation: fadeUp 0.7s forwards;
-  }
-
-  .stat-item:nth-child(1) { animation-delay: 0.6s; }
-  .stat-item:nth-child(2) { animation-delay: 0.75s; }
-  .stat-item:nth-child(3) { animation-delay: 0.9s; }
-  .stat-item:nth-child(4) { animation-delay: 1.05s; }
-
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
-    color: var(--ink);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-
-  .stat-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .scroll-hint {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    opacity: 0;
-    animation: fadeIn 1s 1.5s forwards;
-  }
-
-  .scroll-hint::after {
-    content: '';
-    display: block;
-    width: 3rem;
-    height: 1px;
-    background: var(--muted);
-    animation: expandLine 1s 1.8s forwards;
-    transform-origin: left;
-    transform: scaleX(0);
-  }
-
-  /* ── SECTIONS COMMON ── */
-  section { padding: 7rem 0; }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 3rem;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-
-  .section-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--gold);
-    font-style: italic;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: var(--ink);
-    font-weight: 400;
-  }
-
-  .section-title-jp {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    color: var(--muted);
-    margin-left: auto;
-  }
-
-  /* ── ABOUT ── */
-  #about { background: white; }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .about-text h3 {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 1.8;
-    margin-bottom: 1.8rem;
-    color: var(--ink);
-  }
-
-  .about-text h3 em {
-    font-style: normal;
-    color: var(--rust);
-    border-bottom: 1px solid var(--rust);
-  }
-
-  .about-text p {
-    font-size: 0.9rem;
-    line-height: 2.1;
-    color: #444;
-    margin-bottom: 1.2rem;
-  }
-
-  .timeline {
-    position: relative;
-    padding-left: 1.5rem;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.5rem;
-    bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-  }
-
-  .timeline-item {
-    position: relative;
-    margin-bottom: 2rem;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.6s;
-  }
-
-  .timeline-item.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -1.5rem;
-    top: 0.4rem;
-    width: 5px;
-    height: 5px;
-    background: var(--gold);
-    border-radius: 50%;
-    transform: translateX(-2px);
-  }
-
-  .timeline-year {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    margin-bottom: 0.3rem;
-  }
-
-  .timeline-content {
-    font-size: 0.85rem;
-    line-height: 1.7;
-    color: var(--ink);
-  }
-
-  .timeline-sub {
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-top: 0.2rem;
-  }
-
-  /* ── SKILLS ── */
-  #skills { background: var(--parchment); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-  }
-
-  .skill-card {
-    background: white;
-    padding: 2.5rem;
-    transition: transform 0.3s;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s;
-  }
-
-  .skill-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .skill-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-  }
-
-  .skill-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .skill-icon svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .skill-cat {
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.6rem;
-  }
-
-  .skill-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-  }
-
-  .skill-name-jp {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 0.75rem;
-    color: var(--muted);
-    display: block;
-    font-weight: 300;
-  }
-
-  .skill-list {
-    list-style: none;
-    font-size: 0.78rem;
-    line-height: 2;
-    color: #555;
-  }
-
-  .skill-list li::before {
-    content: '—  ';
-    color: var(--gold);
-  }
-
-  /* ── WORKS ── */
-  #works { background: white; }
-
-  .works-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-  }
-
-  .work-card {
-    position: relative;
-    overflow: hidden;
-    background: var(--ink);
-    min-height: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2.5rem;
-    opacity: 0;
-    transition: opacity 0.6s;
-    cursor: pointer;
-  }
-
-  .work-card.visible { opacity: 1; }
-
-  .work-card:first-child {
-    grid-column: 1 / -1;
-    min-height: 360px;
-  }
-
-  .work-bg {
-    position: absolute;
-    inset: 0;
-    transition: transform 0.6s;
-  }
-
-  .work-bg-1 { background: linear-gradient(135deg, #1a2e1a 0%, #2d4a2d 100%); }
-  .work-bg-2 { background: linear-gradient(135deg, #2e1a1a 0%, #4a2d2d 100%); }
-  .work-bg-3 { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%); }
-
-  .work-card:hover .work-bg { transform: scale(1.02); }
-
-  .work-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.07;
-    font-family: 'Noto Serif JP', serif;
-    font-size: 12rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 2rem;
-    color: white;
-    pointer-events: none;
-  }
-
-  .work-content { position: relative; z-index: 2; }
-
-  .work-tag {
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.8rem;
-  }
-
-  .work-title {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 1.4rem;
-    color: var(--parchment);
-    margin-bottom: 0.6rem;
-    font-weight: 400;
-  }
-
-  .work-title a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .work-title a:hover { color: var(--gold); }
-
-  .work-desc {
-    font-size: 0.78rem;
-    line-height: 1.8;
-    color: rgba(245,240,232,0.6);
-    max-width: 50rem;
-  }
-
-  .work-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-top: 1.5rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    transition: gap 0.3s;
-  }
-
-  .work-link:hover { gap: 1rem; }
-
-  .work-link::after {
-    content: '→';
-  }
-
-  /* ── AI TOOLS ── */
-  #tools { background: var(--ink); }
-
-  #tools .section-title { color: var(--parchment); }
-  #tools .section-num { color: var(--gold); }
-  #tools .section-title-jp { color: var(--muted); }
-
-  .tools-intro {
-    font-size: 0.9rem;
-    line-height: 2;
-    color: rgba(245,240,232,0.65);
-    max-width: 42rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .tools-mosaic {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-  }
-
-  .tool-tile {
-    background: rgba(255,255,255,0.04);
-    padding: 2rem 1.8rem;
-    border: 1px solid rgba(255,255,255,0.06);
-    transition: background 0.3s;
-    opacity: 0;
-    transition: all 0.4s;
-  }
-
-  .tool-tile.visible {
-    opacity: 1;
-    background: rgba(255,255,255,0.04);
-  }
-
-  .tool-tile:hover { background: rgba(201,168,76,0.1); }
-
-  .tool-brand {
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-
-  .tool-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--parchment);
-    margin-bottom: 0.8rem;
-  }
-
-  .tool-uses {
-    list-style: none;
-    font-size: 0.72rem;
-    line-height: 1.9;
-    color: rgba(245,240,232,0.5);
-  }
-
-  .tool-uses li::before {
-    content: '· ';
-    color: var(--gold);
-    opacity: 0.6;
-  }
-
-  /* ── CONTACT ── */
-  #contact { background: var(--parchment); }
-
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .contact-text h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    font-weight: 400;
-  }
-
-  .contact-text p {
-    font-size: 0.85rem;
-    line-height: 2.1;
-    color: #555;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 2rem;
-    background: white;
-    text-decoration: none;
-    color: var(--ink);
-    transition: background 0.3s, color 0.3s;
-    group: true;
-  }
-
-  .contact-link:hover {
-    background: var(--ink);
-    color: var(--parchment);
-  }
-
-  .contact-link:hover .contact-link-arrow { color: var(--gold); }
-
-  .contact-link-info { flex: 1; }
-
-  .contact-link-type {
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.3rem;
-  }
-
-  .contact-link-name {
-    font-size: 0.85rem;
-    font-weight: 400;
-  }
-
-  .contact-link-arrow {
-    font-size: 1.2rem;
-    color: var(--muted);
-    transition: color 0.3s;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--ink);
-    padding: 3rem;
-    text-align: center;
-  }
-
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: var(--parchment);
-    font-size: 1rem;
-  }
-
-  .footer-copy {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  @keyframes expandLine {
-    to { transform: scaleX(1); }
-  }
-
-  /* ── HAMBURGER ── */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 2.2rem;
-    height: 2.2rem;
-    cursor: pointer;
-    z-index: 200;
-    background: none;
-    border: none;
-    padding: 0;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: var(--ink);
-    transition: transform 0.35s, opacity 0.35s, width 0.35s;
-    transform-origin: center;
-  }
-
-  .hamburger.open span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-  }
-  .hamburger.open span:nth-child(2) {
-    opacity: 0;
-    width: 0;
-  }
-  .hamburger.open span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
-  }
-
-  /* ── MOBILE MENU OVERLAY ── */
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--ink);
-    z-index: 150;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    opacity: 0;
-    transition: opacity 0.35s;
-    pointer-events: none;
-  }
-
-  .mobile-menu.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .mobile-menu a {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: var(--parchment);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    padding: 0.6rem 0;
-    position: relative;
-    transition: color 0.3s;
-  }
-
-  .mobile-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0.3rem;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--gold);
-    transition: width 0.3s;
-  }
-
-  .mobile-menu a:hover { color: var(--gold); }
-  .mobile-menu a:hover::after { width: 100%; }
-
-  .mobile-menu-sub {
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 2rem;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    nav ul { display: none; }
-    .hamburger { display: flex; }
-    .mobile-menu { display: flex; }
-
-    #hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-left { padding: 4rem 2rem 3rem; min-height: 60vh; }
-    .hero-right { padding: 2rem; }
-    .stat-grid { grid-template-columns: 1fr 1fr; }
-
-    .container { padding: 0 1.5rem; }
-    section { padding: 5rem 0; }
-
-    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .skills-grid { grid-template-columns: 1fr; }
-    .works-grid { grid-template-columns: 1fr; }
-    .works-grid .work-card:first-child { grid-column: 1; }
-    .tools-mosaic { grid-template-columns: 1fr 1fr; }
-    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .footer-inner { flex-direction: column; gap: 1rem; }
-  }
-
-  /* ── HERO IMAGE ── */
-  .hero-image-wrap {
-    position: relative;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    border-radius: 2px;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.5s forwards;
-  }
-
-  .hero-image-wrap img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    filter: sepia(20%) contrast(1.05);
-    transition: transform 0.6s, filter 0.4s;
-  }
-
-  .hero-image-wrap:hover img {
-    transform: scale(1.03);
-    filter: sepia(0%) contrast(1.05);
-  }
-
-  .hero-image-caption {
-    position: absolute;
-    bottom: 0.8rem;
-    right: 0.8rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(245,240,232,0.75);
-    background: rgba(26,20,16,0.6);
-    padding: 0.25rem 0.6rem;
-    border-radius: 1px;
-  }
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satsuki Sonoda | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    Ns.Caremanager.web creater Sonoda
-    <span>Portfolio 2026</span>
-  </div>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#works">Works</a></li>
-    <li><a href="#tools">AI Tools</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="メニューを開く">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-</nav>
-
-<!-- MOBILE MENU OVERLAY -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about"   class="menu-link">About</a>
-  <a href="#skills"  class="menu-link">Skills</a>
-  <a href="#works"   class="menu-link">Works</a>
-  <a href="#tools"   class="menu-link">AI Tools</a>
-  <a href="#contact" class="menu-link">Contact</a>
-  <p class="mobile-menu-sub">薗田 · Portfolio 2025</p>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-left">
-    <p class="hero-tag">Nurse × Care Manager × Web Creator</p>
-    <h1 class="hero-name">Ns.caremanager<br>web creater<br>Sonoda</h1>
-    <p class="hero-name-jp">薗田</p>
-    <p class="hero-desc">
-      30年超の看護・ケアマネ経験を土台に、AIとWebデザインの世界へ。<br>
-      医療・福祉の深い知識と先端AIツールの実践力を掛け合わせ、<br>
-      人の役に立つコンテンツとデザインを創り続けています。
-    </p>
-    <div class="hero-badges">
-      <span class="badge">Nursing · Care Management</span>
-      <span class="badge">AI Content Creator</span>
-      <span class="badge">Web Designer</span>
-      <span class="badge">YouTube Creator</span>
+  <!-- ナビゲーション -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">Nurse Care Manager Web Designer sonosann</a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#ai-works">AI Works</a></li>
+        <li><a href="#competition">Competition</a></li>
+        <li><a href="#html-works">Web Design</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
-  </div> <div class="hero-right">
+  </nav>
+
+  <!-- ヒーロー -->
+  <section class="hero" id="top">
     <div class="hero-image-wrap">
-      <img src="cat&me1.png" alt="AI生成作品 - nanobanana" />
-      <span class="hero-image-caption">AI Generated · nanobanana</span>
+      <img src="image/top.png" alt="トップ画像" class="hero-img" id="heroImg">
+      <div class="hero-overlay"></div>
     </div>
-    <div class="stat-grid">
-      <div class="stat-item">
-        <div class="stat-num">30<span style="font-size:1.2rem">+</span></div>
-        <div class="stat-label">Years in Healthcare</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">2</div>
-        <div class="stat-label">YouTube Channels</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">10<span style="font-size:1.2rem">+</span></div>
-        <div class="stat-label">AI Tools Used</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Curiosity & Drive</div>
-      </div>
+    <div class="hero-content">
+      <p class="hero-sub fade-up">Nurse &amp; Care Manager → Web Designer &amp; AI Creator</p>
+      <h1 class="hero-title fade-up delay-1">Nurse Care Manager Web Designer sonosann</h1>
+      <p class="hero-desc fade-up delay-2">30年の医療・介護経験 × AI・Webデザインで<br>新しい価値を創る</p>
+      <a href="#ai-works" class="hero-btn fade-up delay-3">Works を見る</a>
     </div>
-    <p class="scroll-hint">Scroll to explore</p>
-  </div> </section> ```
-</section>
+    <div class="hero-scroll">
+      <span></span>
+    </div>
+  </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">01</span>
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
       <h2 class="section-title">About</h2>
-      <span class="section-title-jp">自己紹介</span>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <h3>
-          59歳は、終わりじゃなくて<em>スタート</em>だ。
-        </h3>
-        <p>
-          宮崎県在住。看護師・介護支援専門員として病院・訪問看護・地域包括支援センターなど多岐にわたる現場で30年以上従事してきました。ICT・AIが医療福祉のDXを変えていくことを現場で感じ続け、2023年頃からAIツールの自主学習をスタート。
-        </p>
-        <p>
-          現在はオンラインのWebデザインスクールにて HTML・CSS・WordPress・Figma。CrowdWorksやCoconalaでのフリーランス活動も積極的に展開しています。医療・福祉領域の深い専門知識と、AIツールを実践的に使いこなす力が私の最大の強みです。
-        </p>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">1990s –</div>
-          <div class="timeline-content">看護師として病院・訪問看護に従事</div>
-          <div class="timeline-sub">医療現場でICTの必要性を実感</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2000s –</div>
-          <div class="timeline-content">介護支援専門員（ケアマネ）取得</div>
-          <div class="timeline-sub">地域包括ケア・行政連携の経験を積む<br>Access DBシステム構築にも挑戦</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2023 –</div>
-          <div class="timeline-content">AI自主学習スタート</div>
-          <div class="timeline-sub">Stable Diffusion, NAS, YouTube開始</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2024 –</div>
-          <div class="timeline-content">YouTube 2チャンネル運営</div>
-          <div class="timeline-sub">「ナース・ケアマネ さつき」「AI picture book」</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2025 –</div>
-          <div class="timeline-content">Webデザインスクール</div>
-          <div class="timeline-sub">HTML/CSS/WordPress/Figma <br>フリーランスとして活動開始</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <h2 class="section-title">Skills</h2>
-      <span class="section-title-jp">スキル</span>
-    </div>
-    <div class="skills-grid">
-
-      <div class="skill-card">
-        <div class="skill-icon">
-          <svg viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="18" stroke="#c9a84c" stroke-width="1.5"/>
-            <path d="M13 20 L20 13 L27 20 L20 27 Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-          </svg>
-        </div>
-        <div class="skill-cat">Web Design</div>
-        <div class="skill-name">HTML / CSS<span class="skill-name-jp">Webデザイン</span></div>
-        <ul class="skill-list">
-          <li>レスポンシブデザイン</li>
-          <li>Flexbox / Grid レイアウト</li>
-          <li>ハンバーガーメニュー実装</li>
-          <li>VS Code + GitHub</li>
-          <li>WordPress（学習中）</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-icon">
-          <svg viewBox="0 0 40 40" fill="none">
-            <rect x="8" y="8" width="10" height="10" stroke="#c9a84c" stroke-width="1.5"/>
-            <rect x="22" y="8" width="10" height="10" stroke="#c9a84c" stroke-width="1.5"/>
-            <rect x="8" y="22" width="10" height="10" stroke="#c9a84c" stroke-width="1.5"/>
-            <circle cx="27" cy="27" r="5" stroke="#c9a84c" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="skill-cat">Design Tool</div>
-        <div class="skill-name">Figma<span class="skill-name-jp">UIデザイン・プロトタイプ</span></div>
-        <ul class="skill-list">
-          <li>ワイヤーフレーム作成</li>
-          <li>コンポーネント設計</li>
-          <li>デザインカンプ作成</li>
-          <li>プロトタイプ制作</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-icon">
-          <svg viewBox="0 0 40 40" fill="none">
-            <path d="M6 20 Q13 6 20 20 Q27 34 34 20" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-            <circle cx="20" cy="20" r="3" fill="#c9a84c"/>
-          </svg>
-        </div>
-        <div class="skill-cat">Video Production</div>
-        <div class="skill-name">動画編集<span class="skill-name-jp">YouTube コンテンツ制作</span></div>
-        <ul class="skill-list">
-          <li>CapCut（現在メイン使用）</li>
-          <li>Filmora 14</li>
-          <li>VideoProc Vlogger</li>
-          <li>企画・構成・編集・公開</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-icon">
-          <svg viewBox="0 0 40 40" fill="none">
-            <path d="M10 10 L20 8 L30 10 L32 20 L20 34 L8 20 Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-            <path d="M20 8 L20 34 M8 20 L32 20" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="skill-cat">Healthcare Expertise</div>
-        <div class="skill-name">医療・福祉<span class="skill-name-jp">30年超の専門知識</span></div>
-        <ul class="skill-list">
-          <li>看護師・介護支援専門員</li>
-          <li>訪問看護・認定調査員</li>
-          <li>キャラバンメイト・多職種連携</li>
-          <li>医療福祉DX推進への関心</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-icon">
-          <svg viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="14" r="6" stroke="#c9a84c" stroke-width="1.5"/>
-            <path d="M10 34 C10 26 30 26 30 34" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-          </svg>
-        </div>
-        <div class="skill-cat">AI Image Generation</div>
-        <div class="skill-name">AI画像生成<span class="skill-name-jp">コンテンツ・イラスト制作</span></div>
-        <ul class="skill-list">
-          <li>Google Gemini 画像生成</li>
-          <li>nanobanana（手書き→デジタル化）</li>
-          <li>4コマ漫画シリーズ制作</li>
-          <li>サムネイル・カバー画像制作</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <div class="skill-icon">
-          <svg viewBox="0 0 40 40" fill="none">
-            <rect x="8" y="14" width="24" height="16" rx="2" stroke="#c9a84c" stroke-width="1.5"/>
-            <path d="M14 10 L20 6 L26 10" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-            <circle cx="16" cy="22" r="2" fill="#c9a84c" opacity="0.7"/>
-            <circle cx="24" cy="22" r="2" fill="#c9a84c" opacity="0.7"/>
-          </svg>
-        </div>
-        <div class="skill-cat">Narration & Audio</div>
-        <div class="skill-name">音声・ナレーション<span class="skill-name-jp">AI音声生成</span></div>
-        <ul class="skill-list">
-          <li>Google AI Studio 音声生成</li>
-          <li>対話型・単独型ナレーション</li>
-          <li>原稿作成から音声化まで一貫</li>
-          <li>SunoAI BGM制作</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- WORKS -->
-<section id="works">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Works</h2>
-      <span class="section-title-jp">制作実績</span>
-    </div>
-    <div class="works-grid">
-
-      <div class="work-card">
-        <div class="work-bg work-bg-1"></div>
-        <div class="work-pattern">看</div>
-        <div class="work-content">
-          <div class="work-tag">YouTube Channel · Healthcare</div>
-          <div class="work-title">
-            <a href="https://www.youtube.com/@vu24kpye" target="_blank">ナース・ケアマネ さつき</a>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-lead">看護師・ケアマネジャーとして30年以上のキャリアを積み、<br>AIとWebデザインの世界へ転身中。</p>
+          <p>医療・介護現場での実務経験をベースに、AIツールを駆使したコンテンツ制作とWebデザインを学んでいます。複数のAIを組み合わせた動画制作・画像生成・文書自動化を実践しており、現場目線の課題解決力が強みです。</p>
+          <div class="about-tags">
+            <span>看護師</span>
+            <span>ケアマネジャー</span>
+            <span>AI活用</span>
+            <span>YouTube運営</span>
+            <span>Webデザイン学習中</span>
+            <span>フリーランス</span>
           </div>
-          <p class="work-desc">
-            30年超の看護師・ケアマネ経験をベースに、医療・介護・福祉に関する情報を発信するYouTubeチャンネル。Google NotebookLMによる音声要約・インフォグラフィック作成、Gemini Genによる動画企画構成など、AIツールをフル活用したコンテンツ制作フローを確立。
-          </p>
-          <a href="https://www.youtube.com/@vu24kpye" target="_blank" class="work-link">チャンネルを見る</a>
+        </div>
+        <div class="about-channels">
+          <h3>YouTube チャンネル</h3>
+          <a class="channel-card" href="https://www.youtube.com/@vu24kpye/playlists" target="_blank" rel="noopener">
+            <div class="channel-icon">▶</div>
+            <div>
+              <p class="channel-name">ナース・ケアマネ さつき</p>
+              <p class="channel-desc">医療・介護の現場知識を発信</p>
+            </div>
+          </a>
+          <a class="channel-card" href="https://www.youtube.com/@AIpicturebook-oc4fl/playlists" target="_blank" rel="noopener">
+            <div class="channel-icon">▶</div>
+            <div>
+              <p class="channel-name">AI picture book</p>
+              <p class="channel-desc">AIで作る絵本・動画コンテンツ</p>
+            </div>
+          </a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="work-card">
-        <div class="work-bg work-bg-2"></div>
-        <div class="work-pattern">絵</div>
-        <div class="work-content">
-          <div class="work-tag">YouTube Channel · AI Art</div>
-          <div class="work-title">
-            <a href="https://www.youtube.com/@AIpicturebook-oc4fl" target="_blank">AI picture book</a>
+  <!-- AI Works スライドショー -->
+  <section class="section section-light" id="ai-works">
+    <div class="container">
+      <h2 class="section-title">AI Image Works</h2>
+      <p class="section-sub">Google Gemini / Nanobanana Pro を使用したAI画像制作</p>
+      <div class="slideshow" id="aiSlideshow">
+        <div class="slides-wrap" id="aiSlidesWrap">
+          <!-- JS で生成 -->
+        </div>
+        <button class="slide-btn prev" id="aiPrev" aria-label="前へ">&#8592;</button>
+        <button class="slide-btn next" id="aiNext" aria-label="次へ">&#8594;</button>
+        <div class="slide-dots" id="aiDots"></div>
+      </div>
+      <div class="slide-counter" id="aiCounter">1 / 5</div>
+    </div>
+  </section>
+
+  <!-- Competition Works スライドショー -->
+  <section class="section" id="competition">
+    <div class="container">
+      <h2 class="section-title">Competition Works</h2>
+      <p class="section-sub">コンペへの挑戦作品</p>
+      <div class="slideshow" id="workSlideshow">
+        <div class="slides-wrap" id="workSlidesWrap">
+          <!-- JS で生成 -->
+        </div>
+        <button class="slide-btn prev" id="workPrev" aria-label="前へ">&#8592;</button>
+        <button class="slide-btn next" id="workNext" aria-label="次へ">&#8594;</button>
+        <div class="slide-dots" id="workDots"></div>
+      </div>
+      <div class="slide-counter" id="workCounter">1 / 5</div>
+    </div>
+  </section>
+
+  <!-- HTML Works -->
+  <section class="section section-light" id="html-works">
+    <div class="container">
+      <h2 class="section-title">Web Design Works</h2>
+      <p class="section-sub">HTML / CSS / JavaScript でコーディングした制作物</p>
+      <div class="web-grid" id="webGrid">
+        <!-- サンプルカード（実際のURLに差し替えてください） -->
+        <div class="web-card">
+          <div class="web-card-thumb">
+            <span class="web-card-label">HTML/CSS</span>
           </div>
-          <p class="work-desc">
-            AIで生成した画像を使ったオリジナル絵本・ストーリー動画チャンネル。nanobananaで手書きイラストをデジタル化・着色し、Veo3.1で動画化。Google AI Studioで作成したナレーション音声とSunoAI BGMを組み合わせた独自制作フロー。
-          </p>
-          <a href="https://www.youtube.com/@AIpicturebook-oc4fl" target="_blank" class="work-link">チャンネルを見る</a>
+          <div class="web-card-body">
+            <h3>ポートフォリオサイト</h3>
+            <p>自己紹介・実績をまとめた個人サイト。レスポンシブ対応・ハンバーガーメニュー実装。</p>
+            <div class="web-card-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="#" class="web-card-link" target="_blank" rel="noopener">GitHub Pages で見る →</a>
+          </div>
+        </div>
+        <div class="web-card">
+          <div class="web-card-thumb web-card-thumb--2">
+            <span class="web-card-label">課題</span>
+          </div>
+          <div class="web-card-body">
+            <h3>レスポンシブ ハンバーガーメニュー</h3>
+            <p>Webデザイン講座の課題作品。スクロール連動・モバイル対応ナビを実装。</p>
+            <div class="web-card-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://github.com/satsuki-sonoda/html-css-advanced-kadai" class="web-card-link" target="_blank" rel="noopener">GitHub で見る →</a>
+          </div>
+        </div>
+        <div class="web-card">
+          <div class="web-card-thumb web-card-thumb--3">
+            <span class="web-card-label">練習</span>
+          </div>
+          <div class="web-card-body">
+            <h3>SocialTech 企業サイト</h3>
+            <p>架空企業のWebサイト練習作品。画像表示・レイアウト構成を実践。</p>
+            <div class="web-card-tags"><span>HTML</span><span>CSS</span></div>
+            <a href="#" class="web-card-link" target="_blank" rel="noopener">GitHub Pages で見る →</a>
+          </div>
         </div>
       </div>
+      <p class="web-note">※ リンクは公開後に差し替えてください</p>
+    </div>
+  </section>
 
-      <div class="work-card">
-        <div class="work-bg work-bg-3"></div>
-        <div class="work-pattern">web</div>
-        <div class="work-content">
-          <div class="work-tag">Web Design · Course Project</div>
-          <div class="work-title">SocialTech コーポレートサイト</div>
-          <p class="work-desc">
-            Webデザインスクールの課題として制作した架空企業「SocialTech」のコーポレートサイト。レスポンシブデザイン・ハンバーガーメニュー・Flexboxレイアウトを実装。VS Code + GitHub で管理・提出。
-          </p>
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title">Skills &amp; Tools</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>AI ツール</h3>
+          <ul>
+            <li>Google Gemini（画像生成・マルチモーダル）</li>
+            <li>Nanobanana Pro（手書き→デジタル化）</li>
+            <li>Google AI Studio（音声生成）</li>
+            <li>Google NotebookLM（要約・音声解説）</li>
+            <li>Veo 3.1（画像→動画）</li>
+            <li>SunoAI（音楽生成）</li>
+            <li>Claude（文章生成・コーディング支援）</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>動画・画像編集</h3>
+          <ul>
+            <li>CapCut</li>
+            <li>Wondershare Filmora 14</li>
+            <li>VideoProc Vlogger</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Web 制作</h3>
+          <ul>
+            <li>HTML / CSS（学習中）</li>
+            <li>JavaScript（学習中）</li>
+            <li>Figma（学習中）</li>
+            <li>WordPress（学習中）</li>
+            <li>Visual Studio Code</li>
+            <li>GitHub / GitHub Pages</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>医療・介護の専門知識</h3>
+          <ul>
+            <li>看護師（30年以上）</li>
+            <li>ケアマネジャー</li>
+            <li>介護福祉書類・申請業務</li>
+            <li>Microsoft Access（DB構築）</li>
+            <li>オンライン会議（Zoom / Google Meet）</li>
+          </ul>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- AI TOOLS -->
-<section id="tools">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">04</span>
-      <h2 class="section-title">AI Toolkit</h2>
-      <span class="section-title-jp">使用AIツール</span>
-    </div>
-    <p class="tools-intro">
-      コンテンツ制作の企画から完成まで、複数のAIツールを有機的に組み合わせた独自のワークフローを構築しています。医療福祉の専門知識と掛け合わせることで、他にはないコンテンツを生み出しています。
-    </p>
-    <div class="tools-mosaic">
-
-      <div class="tool-tile">
-        <div class="tool-brand">Google</div>
-        <div class="tool-name">Gemini</div>
-        <ul class="tool-uses">
-          <li>画像生成プロンプト作成</li>
-          <li>マルチモーダル問題解決</li>
-          <li>HTML/CSSコード生成</li>
-          <li>福祉書類申請サポート</li>
-        </ul>
-      </div>
-
-      <div class="tool-tile">
-        <div class="tool-brand">Google</div>
-        <div class="tool-name">Gemini Gen</div>
-        <ul class="tool-uses">
-          <li>YouTube企画構成</li>
-          <li>4コマ漫画構成・原稿</li>
-          <li>サムネイル作成</li>
-          <li>SunoAI歌詞・楽曲プロンプト</li>
-        </ul>
-      </div>
-
-      <div class="tool-tile">
-        <div class="tool-brand">Google</div>
-        <div class="tool-name">NotebookLM</div>
-        <ul class="tool-uses">
-          <li>PDFから音声要約</li>
-          <li>インフォグラフィック作成</li>
-          <li>音声をテキスト化・要約</li>
-        </ul>
-      </div>
-
-      <div class="tool-tile">
-        <div class="tool-brand">Google</div>
-        <div class="tool-name">AI Studio</div>
-        <ul class="tool-uses">
-          <li>ナレーション原稿→音声</li>
-          <li>対話型音声生成</li>
-          <li>単独型音声生成</li>
-        </ul>
-      </div>
-
-      <div class="tool-tile">
-        <div class="tool-brand">Imagen</div>
-        <div class="tool-name">nanobanana</div>
-        <ul class="tool-uses">
-          <li>手書き画像のデジタル化</li>
-          <li>AI着色・彩色</li>
-          <li>画像→動画（Veo 3.1）</li>
-          <li>4コマ漫画作成</li>
-        </ul>
-      </div>
-
-      <div class="tool-tile">
-        <div class="tool-brand">AI Music</div>
-        <div class="tool-name">Suno AI</div>
-        <ul class="tool-uses">
-          <li>BGM・楽曲制作</li>
-          <li>ストーリーに合った楽曲</li>
-          <li>歌詞・楽曲構成プロンプト</li>
-        </ul>
-      </div>
-
-      <div class="tool-tile">
-        <div class="tool-brand">Video</div>
-        <div class="tool-name">CapCut</div>
-        <ul class="tool-uses">
-          <li>動画編集（現在メイン）</li>
-          <li>テロップ・エフェクト</li>
-          <li>YouTube最終仕上げ</li>
-        </ul>
-      </div>
-
-      <div class="tool-tile">
-        <div class="tool-brand">Microsoft</div>
-        <div class="tool-name">Access DB</div>
-        <ul class="tool-uses">
-          <li>看護業務用DBシステム構築</li>
-          <li>データ管理・集計</li>
-          <li>IT活用の長いキャリア</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">05</span>
+  <!-- Contact -->
+  <section class="section section-light" id="contact">
+    <div class="container contact-container">
       <h2 class="section-title">Contact</h2>
-      <span class="section-title-jp">お問い合わせ</span>
-    </div>
-    <div class="contact-inner">
-      <div class="contact-text">
-        <h3>お仕事の<br>ご依頼・ご相談</h3>
-        <p>
-          Webデザイン・バナー制作・SNSコンテンツ作成・AI画像生成・動画ナレーションなど、幅広くご対応可能です。医療・福祉・ヘルスケア分野のコンテンツは特に得意としています。<br><br>
-          CrowdWorksやCoconalaからのご依頼もお待ちしています。お気軽にお声がけください。
-        </p>
-      </div>
+      <p class="contact-desc">お仕事のご依頼・ご相談はクラウドワークスまたはCoccoalaからお気軽にどうぞ。</p>
       <div class="contact-links">
-        <a href="https://www.youtube.com/@vu24kpye" target="_blank" class="contact-link">
-          <div class="contact-link-info">
-            <div class="contact-link-type">YouTube</div>
-            <div class="contact-link-name">ナース・ケアマネ さつき</div>
-          </div>
-          <span class="contact-link-arrow">→</span>
-        </a>
-        <a href="https://www.youtube.com/@AIpicturebook-oc4fl" target="_blank" class="contact-link">
-          <div class="contact-link-info">
-            <div class="contact-link-type">YouTube</div>
-            <div class="contact-link-name">AI picture book</div>
-          </div>
-          <span class="contact-link-arrow">→</span>
-        </a>
-        <a href="https://crowdworks.jp" target="_blank" class="contact-link">
-          <div class="contact-link-info">
-            <div class="contact-link-type">Freelance</div>
-            <div class="contact-link-name">CrowdWorks プロフィール</div>
-          </div>
-          <span class="contact-link-arrow">→</span>
-        </a>
-        <a href="https://coconala.com" target="_blank" class="contact-link">
-          <div class="contact-link-info">
-            <div class="contact-link-type">Freelance</div>
-            <div class="contact-link-name">Coconala プロフィール</div>
-          </div>
-          <span class="contact-link-arrow">→</span>
-        </a>
+        <a href="https://crowdworks.jp/public/employees/6735369" class="contact-btn" target="_blank" rel="noopener">CrowdWorks プロフィール</a>
+        <a href="https://coconala.com/users/5975070" class="contact-btn contact-btn--outline" target="_blank" rel="noopener">Coconala プロフィール&ブログ</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Satsuki Sonoda</div>
-    <div class="footer-copy">© 2025 薗田 · Miyazaki, Japan</div>
-  </div>
-</footer>
+  <footer class="footer">
+    <p>© 2025 Satsuki Sonoda. All rights reserved.</p>
+  </footer>
 
-<script>
-  // Hamburger menu
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  document.querySelectorAll('.menu-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-
-  // Intersection Observer for scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.timeline-item, .skill-card, .work-card, .tool-tile').forEach(el => {
-    observer.observe(el);
-  });
-
-  // Stagger delays for grid items
-  document.querySelectorAll('.skill-card').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.08}s`;
-  });
-  document.querySelectorAll('.tool-tile').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.06}s`;
-  });
-  document.querySelectorAll('.work-card').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.1}s`;
-  });
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
