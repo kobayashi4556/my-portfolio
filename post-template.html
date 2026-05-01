@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事タイトル | Blog | sonosann</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="blog-style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   記事個別ページ専用スタイル
+   ===================================================== */
+
+/* ---- ページヘッダー ---- */
+.post-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 50%, #1a1a2e 100%);
+  padding: 100px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.post-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 60%, rgba(180,160,120,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 30%, rgba(180,160,120,0.06) 0%, transparent 70%);
+}
+.post-header-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem 2.5rem;
+}
+
+/* パンくずリスト */
+.post-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.post-breadcrumb a,
+.post-breadcrumb span {
+  font-size: 0.72rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: rgba(240,235,227,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.post-breadcrumb a:hover { color: #b4a078; }
+.post-breadcrumb .sep { color: rgba(240,235,227,0.25); font-size: 0.65rem; }
+.post-breadcrumb .current { color: rgba(240,235,227,0.4); }
+
+/* カテゴリーバッジ */
+.post-cat-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 0.3em 0.9em;
+  border-radius: 2px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.post-cat-badge.career { background: rgba(180,160,120,0.2); color: #d4b888; border: 1px solid rgba(180,160,120,0.3); }
+.post-cat-badge.ai     { background: rgba(100,130,200,0.2); color: #9ab0d8; border: 1px solid rgba(100,130,200,0.3); }
+.post-cat-badge.web    { background: rgba(100,180,130,0.2); color: #90c8a0; border: 1px solid rgba(100,180,130,0.3); }
+
+/* 記事タイトル */
+.post-title {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 500;
+  color: #f0ebe3;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.25rem;
+}
+
+/* 著者・日時バー */
+.post-meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.post-author-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4a4a6a, #6a6a9a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.post-author-name {
+  font-size: 0.8rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  color: rgba(240,235,227,0.8);
+}
+.post-date {
+  font-size: 0.75rem;
+  font-family: 'Cormorant Garamond', serif;
+  color: rgba(240,235,227,0.45);
+  letter-spacing: 0.06em;
+}
+
+/* ---- アイキャッチ画像 ---- */
+.post-eyecatch {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  transform: translateY(-1px);
+}
+.post-eyecatch-img {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+}
+/* ダミー画像用 */
+.post-eyecatch-dummy {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #2d3a4a 0%, #3a4a5a 40%, #2a3545 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+}
+.post-eyecatch-dummy-icon { font-size: 3.5rem; line-height: 1; opacity: 0.7; }
+.post-eyecatch-dummy-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: rgba(240,235,227,0.3);
+  text-transform: uppercase;
+}
+
+/* ---- レイアウト：本文＋サイドバー ---- */
+.post-layout {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 3rem;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .post-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ---- 本文エリア ---- */
+.post-body {}
+
+/* リード文（冒頭の引用風） */
+.post-lead {
+  font-size: 1rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  color: #3a3530;
+  line-height: 2;
+  padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+  border-left: 3px solid #b4a078;
+  background: #faf8f4;
+  margin-bottom: 2rem;
+  border-radius: 0 4px 4px 0;
+}
+
+/* 本文の段落 */
+.post-content p {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #3a3530;
+  line-height: 2.1;
+  margin-bottom: 1.4rem;
+  letter-spacing: 0.03em;
+}
+
+/* 見出し h2 */
+.post-content h2 {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #1a1a2e;
+  margin: 2.5rem 0 1rem;
+  padding: 0.6rem 0 0.6rem 1rem;
+  border-left: 3px solid #b4a078;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* 見出し h3 */
+.post-content h3 {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2d2d44;
+  margin: 2rem 0 0.75rem;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* 引用ブロック（AIの回答など） */
+.post-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  background: #f4f2ee;
+  border: 1px solid #e0dbd0;
+  border-radius: 4px;
+  position: relative;
+}
+.post-content blockquote::before {
+  content: attr(data-label);
+  display: block;
+  font-size: 0.7rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: #b4a078;
+  margin-bottom: 0.6rem;
+}
+.post-content blockquote p {
+  font-size: 0.85rem;
+  color: #5a5550;
+  margin-bottom: 0;
+}
+
+/* リスト */
+.post-content ul,
+.post-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.4rem;
+}
+.post-content li {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: #3a3530;
+  line-height: 2;
+  letter-spacing: 0.03em;
+}
+
+/* ハイライトボックス */
+.post-highlight {
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #f0ebe0, #e8e2d4);
+  border-radius: 4px;
+  border: 1px solid rgba(180,160,120,0.3);
+}
+.post-highlight p {
+  font-size: 0.88rem !important;
+  color: #4a4030 !important;
+  margin-bottom: 0 !important;
+}
+
+/* タグ一覧 */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+.post-tag {
+  font-size: 0.72rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  color: #7a7570;
+  background: #f4f2ee;
+  border: 1px solid #e0dbd0;
+  border-radius: 2px;
+  padding: 0.2em 0.7em;
+  letter-spacing: 0.04em;
+}
+
+/* 前後記事ナビ */
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+.post-nav-item {
+  text-decoration: none;
+  padding: 1rem;
+  background: #f8f6f2;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 4px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.post-nav-item:hover { background: #f0ebe0; border-color: rgba(180,160,120,0.4); }
+.post-nav-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: #b4a078;
+  font-family: 'Cormorant Garamond', serif;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.post-nav-title {
+  font-size: 0.8rem;
+  color: #3a3530;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.post-nav-item.next { text-align: right; }
+
+/* ブログ一覧へ戻るボタン */
+.post-back-wrap {
+  text-align: center;
+  margin-top: 2rem;
+}
+.post-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: #5a5550;
+  text-decoration: none;
+  border: 1px solid #d0cbc0;
+  padding: 0.6em 1.4em;
+  border-radius: 2px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.post-back-btn:hover { color: #b4a078; border-color: #b4a078; }
+
+/* ---- サイドバー ---- */
+.post-sidebar { display: flex; flex-direction: column; gap: 1.75rem; }
+
+.sidebar-widget {
+  background: #f8f6f2;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 4px;
+  padding: 1.25rem;
+}
+.sidebar-widget-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: #2d2d44;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.sidebar-profile-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, #2d2d44, #4a4a6a);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; margin-bottom: 0.6rem;
+}
+.sidebar-profile-name {
+  font-size: 0.82rem; font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500; color: #2d2d2d; margin-bottom: 0.2rem;
+}
+.sidebar-profile-desc {
+  font-size: 0.73rem; color: #7a7570; line-height: 1.7;
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
+}
+.sidebar-cat-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.sidebar-cat-list li a {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.78rem; color: #5a5550; font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300; text-decoration: none; padding: 0.25rem 0; transition: color 0.2s;
+}
+.sidebar-cat-list li a:hover { color: #b4a078; }
+.sidebar-cat-count { font-size: 0.68rem; color: #aaa; font-family: 'Cormorant Garamond', serif; }
+.sidebar-link-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.sidebar-link-list li a {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.78rem; color: #5a5550; font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300; text-decoration: none; padding: 0.25rem 0; transition: color 0.2s;
+}
+.sidebar-link-list li a:hover { color: #b4a078; }
+</style>
+</head>
+<body>
+
+<!-- ナビゲーション -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">Nurse Care Manager Web Designer sonosann</a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#ai-works">AI Works</a></li>
+      <li><a href="index.html#competition">Competition</a></li>
+      <li><a href="index.html#html-works">Web Design</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="blog.html" class="active">BLOG</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ==============================
+     ページヘッダー（タイトル部）
+     ============================== -->
+<header class="post-header">
+  <div class="post-header-inner">
+
+    <!-- パンくずリスト -->
+    <nav class="post-breadcrumb" aria-label="パンくずリスト">
+      <a href="index.html">Portfolio</a>
+      <span class="sep">›</span>
+      <a href="blog.html">Blog</a>
+      <span class="sep">›</span>
+      <span class="current">キャリア転換</span>
+    </nav>
+
+    <!-- カテゴリーバッジ -->
+    <span class="post-cat-badge career">🏥 キャリア転換</span>
+
+    <!-- 記事タイトル ★ここを書き換える★ -->
+    <h1 class="post-title">
+      【未経験からフリーランスへ】AIと動画制作の武器を手に、走り出した2ヶ月目の現在地
+    </h1>
+
+    <!-- 著者・日時 -->
+    <div class="post-meta-bar">
+      <div class="post-author">
+        <div class="post-author-icon">🌸</div>
+        <span class="post-author-name">sonosann</span>
+      </div>
+      <time class="post-date">2026.03.30</time>
+    </div>
+
+  </div>
+</header>
+
+<!-- ==============================
+     アイキャッチ画像
+     ============================== -->
+<div class="post-eyecatch">
+  <!--
+    実際の画像を使う場合は下の <div class="post-eyecatch-dummy"> を削除して
+    <img> タグのコメントを外し、src に画像パスを入れてください。
+
+    <img
+      src="image/post-001-eyecatch.jpg"
+      alt="毎日の食事は自炊してます"
+      class="post-eyecatch-img"
+    >
+  -->
+  <div class="post-eyecatch-dummy">
+    <span class="post-eyecatch-dummy-icon">🐱</span>
+    <span class="post-eyecatch-dummy-text">Eyecatch Image</span>
+  </div>
+</div>
+
+<!-- ==============================
+     本文 ＋ サイドバー
+     ============================== -->
+<div class="post-layout">
+
+  <!-- ===== 本文エリア ===== -->
+  <article class="post-body">
+
+    <!-- リード文（冒頭の目を引く一文） -->
+    <p class="post-lead">
+      「フリーランスとして独立したい」——その一心で、私は在職しながらの準備ではなく、退路を断って学習に専念する道を選びました。
+    </p>
+
+    <!-- ★ 本文コンテンツ ★ -->
+    <div class="post-content">
+
+      <p>
+        早いもので、オンライン学習をスタートし、クラウドワークスやCoccoalaで案件を探し始めてから、まもなく2ヶ月が経とうとしています。
+      </p>
+
+      <h2>リスキリング支援という追い風</h2>
+
+      <p>
+        最近、ふと気になってAIに「国が実施している在職者向けのリスキリング支援」について聞いてみました。
+      </p>
+
+      <blockquote data-label="AIの回答（2026年時点）">
+        <p>
+          政府は「三位一体の労働市場改革」を掲げ、個人の主体的なキャリア形成を強力にバックアップしています。主に「個人が直接受け取る給付金」と「企業を通じて受ける支援」の2軸で展開されています。
+        </p>
+      </blockquote>
+
+      <p>
+        もし今、働きながら独立を考えている方がいれば、一度ご自身のAIアシスタントに詳細を聞いてみることをおすすめします。国からの手厚いサポートが見つかるかもしれません。
+      </p>
+
+      <h2>ゼロからのポートフォリオ構築</h2>
+
+      <p>
+        Webデザインを学び始めて気づいたのは、「作れるものが増えるほど、見せるものも増えていく」ということ。最初は何から手をつければいいか全くわからなかったのに、今ではGitHub Pagesに自分のポートフォリオを公開するところまで来ました。
+      </p>
+
+      <div class="post-highlight">
+        <p>
+          💡 <strong>学習のコツ：</strong>完璧を目指さず、まず公開すること。小さなアウトプットの積み重ねが、自信につながります。
+        </p>
+      </div>
+
+      <h3>使っているAIツール</h3>
+
+      <ul>
+        <li>Claude — コーディング支援・文章生成</li>
+        <li>Google Gemini — 画像生成・マルチモーダル活用</li>
+        <li>SunoAI — 動画用BGM生成</li>
+        <li>CapCut / Filmora 14 — 動画編集</li>
+      </ul>
+
+      <h2>59歳は、終わりじゃなくてスタートだ</h2>
+
+      <p>
+        医療・介護の現場で30年以上積み上げてきた経験は、消えるものではありません。それをAIとWebデザインという新しい武器と組み合わせることで、唯一無二の価値を生み出せると信じています。
+      </p>
+
+      <p>
+        これからも、等身大の学びと挑戦をここで発信していきます。
+      </p>
+
+    </div><!-- /.post-content -->
+
+    <!-- タグ -->
+    <div class="post-tags">
+      <span class="post-tag">フリーランス</span>
+      <span class="post-tag">キャリア転換</span>
+      <span class="post-tag">AIツール活用</span>
+      <span class="post-tag">リスキリング</span>
+      <span class="post-tag">Webデザイン</span>
+    </div>
+
+    <!-- 前後記事ナビ -->
+    <nav class="post-nav">
+      <a class="post-nav-item prev" href="#">
+        <span class="post-nav-label">← Prev</span>
+        <span class="post-nav-title">看護師30年、なぜ私はフリーランスを選んだのか</span>
+      </a>
+      <a class="post-nav-item next" href="#">
+        <span class="post-nav-label">Next →</span>
+        <span class="post-nav-title">クラウドワークスに登録してみた——初めての案件応募体験記</span>
+      </a>
+    </nav>
+
+    <!-- ブログ一覧に戻る -->
+    <div class="post-back-wrap">
+      <a href="blog.html" class="post-back-btn">← Blog 一覧に戻る</a>
+    </div>
+
+  </article>
+
+  <!-- ===== サイドバー ===== -->
+  <aside class="post-sidebar">
+
+    <div class="sidebar-widget">
+      <h3 class="sidebar-widget-title">About me</h3>
+      <div class="sidebar-profile-icon">🌸</div>
+      <p class="sidebar-profile-name">sonosann（薗田さつき）</p>
+      <p class="sidebar-profile-desc">看護師・ケアマネジャー歴30年以上。AIとWebデザインの世界へ転身中。宮崎在住フリーランス。</p>
+    </div>
+
+    <div class="sidebar-widget">
+      <h3 class="sidebar-widget-title">Category</h3>
+      <ul class="sidebar-cat-list">
+        <li><a href="blog.html"><span>🏥 キャリア転換</span><span class="sidebar-cat-count">3</span></a></li>
+        <li><a href="blog.html"><span>🤖 AIツール活用</span><span class="sidebar-cat-count">3</span></a></li>
+        <li><a href="blog.html"><span>💻 Web学習日記</span><span class="sidebar-cat-count">3</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-widget">
+      <h3 class="sidebar-widget-title">Links</h3>
+      <ul class="sidebar-link-list">
+        <li><a href="index.html"><span>🗂</span>Portfolio サイト</a></li>
+        <li><a href="https://coconala.com/users/5975070" target="_blank" rel="noopener"><span>🛍</span>Coconala</a></li>
+        <li><a href="https://crowdworks.jp/public/employees/6735369" target="_blank" rel="noopener"><span>💼</span>CrowdWorks</a></li>
+        <li><a href="https://www.youtube.com/@vu24kpye/playlists" target="_blank" rel="noopener"><span>▶</span>YouTube（さつき）</a></li>
+        <li><a href="https://www.youtube.com/@AIpicturebook-oc4fl/playlists" target="_blank" rel="noopener"><span>▶</span>YouTube（AI picture book）</a></li>
+      </ul>
+    </div>
+
+  </aside>
+
+</div><!-- /.post-layout -->
+
+<!-- フッター -->
+<footer class="footer">
+  <p>© 2026 sonosann. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
