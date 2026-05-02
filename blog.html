@@ -10,326 +10,70 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* =============================
-     ブログページ専用スタイル
-     ============================= */
-
-  /* ---- ヒーロー（ブログ用） ---- */
-  .blog-hero {
-    position: relative;
-    padding: 120px 0 60px;
-    text-align: center;
-    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 50%, #1a1a2e 100%);
-    overflow: hidden;
-  }
-  .blog-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(ellipse 60% 40% at 20% 60%, rgba(180,160,120,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 80% 30%, rgba(180,160,120,0.06) 0%, transparent 70%);
-  }
-  .blog-hero-inner {
-    position: relative;
-    z-index: 1;
-  }
-  .blog-hero-label {
-    display: inline-block;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.35em;
-    color: #b4a078;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-  .blog-hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 300;
-    color: #f0ebe3;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.75rem;
-  }
-  .blog-hero-desc {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: rgba(240,235,227,0.6);
-    letter-spacing: 0.08em;
-    line-height: 1.9;
-  }
-  .blog-hero-line {
-    width: 48px;
-    height: 1px;
-    background: #b4a078;
-    margin: 1.5rem auto 0;
-    opacity: 0.6;
-  }
-
-  /* ---- カテゴリーフィルター ---- */
-  .blog-filter-wrap {
-    background: #f8f6f2;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .blog-filter-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    display: flex;
-    gap: 0.25rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .blog-filter-inner::-webkit-scrollbar { display: none; }
-  .filter-btn {
-    flex-shrink: 0;
-    padding: 0.85rem 1.25rem;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    color: #6b6560;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-    white-space: nowrap;
-  }
-  .filter-btn:hover { color: #2d2d44; }
-  .filter-btn.active {
-    color: #2d2d44;
-    border-bottom-color: #b4a078;
-    font-weight: 500;
-  }
-
-  /* ---- ブログ本体レイアウト ---- */
-  .blog-main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 5rem;
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 3rem;
-    align-items: start;
-  }
-  @media (max-width: 720px) {
-    .blog-main { grid-template-columns: 1fr; gap: 2rem; }
-  }
-
-  /* ---- 記事カード一覧 ---- */
-  .articles-list { display: flex; flex-direction: column; gap: 0; }
-
-  .article-card {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 1.25rem;
-    padding: 1.75rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.2s;
-    opacity: 1;
-  }
-  .article-card.hidden { display: none; }
-  .article-card:first-child { padding-top: 0; }
-  .article-card:hover .article-title { color: #b4a078; }
-
-  .article-thumb {
-    width: 100px;
-    height: 72px;
-    border-radius: 4px;
-    overflow: hidden;
-    background: #e8e4dc;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .article-thumb-emoji {
-    font-size: 2rem;
-    line-height: 1;
-  }
-  .article-thumb.career { background: linear-gradient(135deg, #e8e0d0, #d4c8b0); }
-  .article-thumb.ai     { background: linear-gradient(135deg, #d0d8e8, #b0b8d4); }
-  .article-thumb.web    { background: linear-gradient(135deg, #d0e8d4, #b0d4b4); }
-
-  .article-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.4rem;
-    flex-wrap: wrap;
-  }
-  .article-cat {
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    padding: 0.2em 0.7em;
-    border-radius: 2px;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 400;
-  }
-  .article-cat.career { background: #f0ebe0; color: #7a6a4a; }
-  .article-cat.ai     { background: #e0e8f0; color: #3a5070; }
-  .article-cat.web    { background: #e0f0e4; color: #3a6040; }
-
-  .article-date {
-    font-size: 0.72rem;
-    color: #9a9490;
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 0.05em;
-  }
-  .article-title {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #2d2d2d;
-    line-height: 1.6;
-    margin-bottom: 0.4rem;
-    transition: color 0.2s;
-  }
-  .article-desc {
-    font-size: 0.8rem;
-    color: #7a7570;
-    line-height: 1.75;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-  }
-  .article-tag-coming {
-    display: inline-block;
-    font-size: 0.65rem;
-    color: #aaa;
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    padding: 0.1em 0.5em;
-    margin-left: 0.4em;
-    vertical-align: middle;
-  }
-
-  /* ---- サイドバー ---- */
-  .blog-sidebar { display: flex; flex-direction: column; gap: 2rem; }
-
-  .sidebar-widget {
-    background: #f8f6f2;
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 4px;
-    padding: 1.5rem;
-  }
-  .sidebar-widget-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    color: #2d2d44;
-    margin-bottom: 1rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-  }
-
-  /* プロフィール */
-  .sidebar-profile-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2d2d44, #4a4a6a);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-  .sidebar-profile-name {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #2d2d2d;
-    margin-bottom: 0.25rem;
-  }
-  .sidebar-profile-desc {
-    font-size: 0.75rem;
-    color: #7a7570;
-    line-height: 1.7;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-  }
-
-  /* カテゴリー一覧 */
-  .sidebar-cat-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-  .sidebar-cat-list li a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8rem;
-    color: #5a5550;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-    text-decoration: none;
-    padding: 0.3rem 0;
-    transition: color 0.2s;
-  }
-  .sidebar-cat-list li a:hover { color: #b4a078; }
-  .sidebar-cat-count {
-    font-size: 0.7rem;
-    color: #aaa;
-    font-family: 'Cormorant Garamond', serif;
-  }
-
-  /* 外部リンク */
-  .sidebar-link-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-  .sidebar-link-list li a {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: #5a5550;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-    text-decoration: none;
-    padding: 0.3rem 0;
-    transition: color 0.2s;
-  }
-  .sidebar-link-list li a:hover { color: #b4a078; }
-  .sidebar-link-icon { font-size: 0.9rem; }
-
-  /* ---- 記事なし ---- */
-  .no-articles {
-    text-align: center;
-    padding: 3rem 0;
-    color: #aaa;
-    font-size: 0.85rem;
-    font-family: 'Noto Sans JP', sans-serif;
-    display: none;
-  }
-
-  /* ---- Back to portfolio ---- */
-  .back-to-portfolio {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
-    color: rgba(240,235,227,0.7);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .back-to-portfolio:hover { color: #b4a078; }
+  .blog-hero { position:relative; padding:120px 0 0; background:linear-gradient(135deg,#1a1a2e 0%,#2d2d44 50%,#1a1a2e 100%); overflow:hidden; }
+  .blog-hero::before { content:''; position:absolute; inset:0; background-image:radial-gradient(ellipse 60% 40% at 20% 60%,rgba(180,160,120,.08) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 80% 30%,rgba(180,160,120,.06) 0%,transparent 70%); }
+  .blog-hero-inner { position:relative; z-index:1; max-width:960px; margin:0 auto; padding:0 1.5rem 2.5rem; text-align:center; }
+  .blog-hero-label { display:inline-block; font-family:'Cormorant Garamond',serif; font-size:.75rem; letter-spacing:.35em; color:#b4a078; text-transform:uppercase; margin-bottom:1rem; }
+  .blog-hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,6vw,4rem); font-weight:300; color:#f0ebe3; letter-spacing:.1em; margin-bottom:.75rem; }
+  .blog-hero-desc { font-family:'Noto Sans JP',sans-serif; font-size:.85rem; font-weight:300; color:rgba(240,235,227,.6); letter-spacing:.08em; line-height:1.9; }
+  .blog-hero-line { width:48px; height:1px; background:#b4a078; margin:1.5rem auto 0; opacity:.6; }
+  .back-link { display:inline-flex; align-items:center; gap:.5rem; font-family:'Cormorant Garamond',serif; font-size:.85rem; letter-spacing:.12em; color:rgba(240,235,227,.7); text-decoration:none; transition:color .2s; }
+  .back-link:hover { color:#b4a078; }
+  .blog-filter-wrap { background:#f8f6f2; border-bottom:1px solid rgba(0,0,0,.06); position:sticky; top:0; z-index:100; }
+  .blog-filter-inner { max-width:960px; margin:0 auto; padding:0 1.5rem; display:flex; gap:.25rem; overflow-x:auto; scrollbar-width:none; }
+  .blog-filter-inner::-webkit-scrollbar { display:none; }
+  .filter-btn { flex-shrink:0; padding:.85rem 1.25rem; font-family:'Noto Sans JP',sans-serif; font-size:.78rem; font-weight:400; letter-spacing:.06em; color:#6b6560; background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; transition:color .2s,border-color .2s; white-space:nowrap; }
+  .filter-btn:hover { color:#2d2d44; }
+  .filter-btn.active { color:#2d2d44; border-bottom-color:#b4a078; font-weight:500; }
+  .blog-main { max-width:960px; margin:0 auto; padding:3rem 1.5rem 5rem; display:grid; grid-template-columns:1fr 280px; gap:3rem; align-items:start; }
+  @media(max-width:720px){ .blog-main { grid-template-columns:1fr; gap:2rem; } }
+  .articles-list { display:flex; flex-direction:column; }
+  .article-card { display:grid; grid-template-columns:100px 1fr; gap:1.25rem; padding:1.75rem 0; border-bottom:1px solid rgba(0,0,0,.07); text-decoration:none; color:inherit; }
+  .article-card.hidden { display:none; }
+  .article-card:first-child { padding-top:0; }
+  .article-card:hover .article-title { color:#b4a078; }
+  .article-thumb { width:100px; height:72px; border-radius:4px; overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .article-thumb img { width:100%; height:100%; object-fit:cover; }
+  .article-thumb-emoji { font-size:2rem; line-height:1; }
+  .article-thumb.career { background:linear-gradient(135deg,#e8e0d0,#d4c8b0); }
+  .article-thumb.ai     { background:linear-gradient(135deg,#d0d8e8,#b0b8d4); }
+  .article-thumb.web    { background:linear-gradient(135deg,#d0e8d4,#b0d4b4); }
+  .article-thumb.other  { background:linear-gradient(135deg,#e8e0e8,#d0b8d0); }
+  .article-meta { display:flex; align-items:center; gap:.6rem; margin-bottom:.4rem; flex-wrap:wrap; }
+  .article-cat { font-size:.68rem; letter-spacing:.06em; padding:.2em .7em; border-radius:2px; font-family:'Noto Sans JP',sans-serif; font-weight:400; }
+  .article-cat.career { background:#f0ebe0; color:#7a6a4a; }
+  .article-cat.ai     { background:#e0e8f0; color:#3a5070; }
+  .article-cat.web    { background:#e0f0e4; color:#3a6040; }
+  .article-cat.other  { background:#ede0f0; color:#5a3a70; }
+  .article-date { font-size:.72rem; color:#9a9490; font-family:'Cormorant Garamond',serif; letter-spacing:.05em; }
+  .article-title { font-family:'Noto Sans JP',sans-serif; font-size:.95rem; font-weight:500; color:#2d2d2d; line-height:1.6; margin-bottom:.4rem; transition:color .2s; }
+  .article-desc { font-size:.8rem; color:#7a7570; line-height:1.75; font-family:'Noto Sans JP',sans-serif; font-weight:300; }
+  .loading-state { text-align:center; padding:3rem 0; color:#aaa; font-size:.85rem; font-family:'Noto Sans JP',sans-serif; }
+  .loading-spinner { width:28px; height:28px; border:2px solid #e0dbd0; border-top-color:#b4a078; border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 1rem; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .error-state { text-align:center; padding:2rem; color:#a08060; font-size:.82rem; line-height:1.9; font-family:'Noto Sans JP',sans-serif; background:#faf8f4; border:1px solid #e0d8c8; border-radius:4px; }
+  .no-articles { text-align:center; padding:3rem 0; color:#aaa; font-size:.85rem; display:none; }
+  .blog-sidebar { display:flex; flex-direction:column; gap:2rem; }
+  .sidebar-widget { background:#f8f6f2; border:1px solid rgba(0,0,0,.06); border-radius:4px; padding:1.5rem; }
+  .sidebar-widget-title { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:400; letter-spacing:.12em; color:#2d2d44; margin-bottom:1rem; padding-bottom:.6rem; border-bottom:1px solid rgba(0,0,0,.08); }
+  .sidebar-profile-icon { width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,#2d2d44,#4a4a6a); display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:.75rem; }
+  .sidebar-profile-name { font-family:'Noto Sans JP',sans-serif; font-size:.85rem; font-weight:500; color:#2d2d2d; margin-bottom:.25rem; }
+  .sidebar-profile-desc { font-size:.75rem; color:#7a7570; line-height:1.7; font-family:'Noto Sans JP',sans-serif; font-weight:300; }
+  .sidebar-cat-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; }
+  .sidebar-cat-list li a { display:flex; justify-content:space-between; align-items:center; font-size:.8rem; color:#5a5550; font-family:'Noto Sans JP',sans-serif; font-weight:300; text-decoration:none; padding:.3rem 0; transition:color .2s; }
+  .sidebar-cat-list li a:hover { color:#b4a078; }
+  .sidebar-cat-count { font-size:.7rem; color:#aaa; font-family:'Cormorant Garamond',serif; }
+  .sidebar-link-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; }
+  .sidebar-link-list li a { display:flex; align-items:center; gap:.5rem; font-size:.8rem; color:#5a5550; font-family:'Noto Sans JP',sans-serif; font-weight:300; text-decoration:none; padding:.3rem 0; transition:color .2s; }
+  .sidebar-link-list li a:hover { color:#b4a078; }
 </style>
 </head>
 <body>
 
-<!-- ナビゲーション -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">Nurse Care Manager Web Designer sonosann</a>
-    <button class="nav-toggle" id="navToggle" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#ai-works">AI Works</a></li>
@@ -342,10 +86,9 @@
   </div>
 </nav>
 
-<!-- ブログヒーロー -->
 <div class="blog-hero">
   <div class="blog-hero-inner">
-    <a href="index.html" class="back-to-portfolio">← Portfolio に戻る</a>
+    <a href="index.html" class="back-link">← Portfolio に戻る</a>
     <div class="blog-hero-line" style="margin-top:1.5rem;"></div>
     <p class="blog-hero-label" style="margin-top:1.5rem;">sonosann's journal</p>
     <h1 class="blog-hero-title">Blog</h1>
@@ -354,7 +97,6 @@
   </div>
 </div>
 
-<!-- カテゴリーフィルター -->
 <div class="blog-filter-wrap">
   <div class="blog-filter-inner">
     <button class="filter-btn active" data-cat="all">すべて</button>
@@ -364,265 +106,112 @@
   </div>
 </div>
 
-<!-- メインコンテンツ -->
 <main class="blog-main">
-
-  <!-- 記事一覧 -->
   <section>
-    <div class="articles-list" id="articlesList">
-
-      <!-- ── キャリア転換 ── -->
-      <a class="article-card" data-cat="career" href="https://coconala.com/blogs/5975070/720354" target="_blank" rel="noopener">
-        <div class="article-thumb career">
-          <span class="article-thumb-emoji">🏥</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat career">キャリア転換</span>
-            <time class="article-date">2025.06.01</time>
-          </div>
-          <h2 class="article-title">看護師30年、なぜ私はフリーランスを選んだのか</h2>
-          <p class="article-desc">現場で感じた「もっとできることがあるはず」という思いが、私をAIとWebデザインの世界へと引き寄せました。転換のきっかけと決断の理由を正直に綴ります。</p>
-        </div>
-      </a>
-
-      <a class="article-card" data-cat="career" href="https://coconala.com/blogs/5975070/724079" target="_blank" rel="noopener">
-        <div class="article-thumb career">
-          <span class="article-thumb-emoji">📝</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat career">キャリア転換</span>
-            <time class="article-date">2025.06.10</time>
-          </div>
-          <h2 class="article-title">クラウドワークスに登録してみた——初めての案件応募体験記</h2>
-          <p class="article-desc">プロフィール作成から最初の応募まで、戸惑ったこと・気づいたこと。AIを使ってYouTubeを運営していた経験がどう武器になるかを実感した話です。</p>
-        </div>
-      </a>
-
-      <div class="article-card" data-cat="career" style="cursor:default;">
-        <div class="article-thumb career">
-          <span class="article-thumb-emoji">💴</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat career">キャリア転換</span>
-            <time class="article-date">2025.06.18</time>
-          </div>
-          <h2 class="article-title">スキルアップ支援制度を活用して講座を受講——手続きの流れを解説<span class="article-tag-coming">準備中</span></h2>
-          <p class="article-desc">再就職支援・スキルアップ給付金の申請から受給まで。同じように転換を考えている方へ、実体験をもとにわかりやすくまとめました。</p>
-        </div>
-      </div>
-
-      <!-- ── AIツール活用 ── -->
-      <div class="article-card" data-cat="ai" style="cursor:default;">
-        <div class="article-thumb ai">
-          <span class="article-thumb-emoji">🤖</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat ai">AIツール活用</span>
-            <time class="article-date">2025.06.05</time>
-          </div>
-          <h2 class="article-title">Google Geminiで介護書類を自動作成——ケアマネが試してみた<span class="article-tag-coming">準備中</span></h2>
-          <p class="article-desc">課題整理総括表や支援経過記録をAIで下書きする方法を実践レポート。現場の方でも使えるプロンプトの書き方も紹介します。</p>
-        </div>
-      </div>
-
-      <div class="article-card" data-cat="ai" style="cursor:default;">
-        <div class="article-thumb ai">
-          <span class="article-thumb-emoji">🎨</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat ai">AIツール活用</span>
-            <time class="article-date">2025.06.14</time>
-          </div>
-          <h2 class="article-title">nanobananaで手書きスケッチをデジタルイラストに変換する方法<span class="article-tag-coming">準備中</span></h2>
-          <p class="article-desc">紙に描いたラフをスキャンしてAIでデジタル化、さらに着色まで。私が実際に使っているワークフローをステップごとに解説します。</p>
-        </div>
-      </div>
-
-      <div class="article-card" data-cat="ai" style="cursor:default;">
-        <div class="article-thumb ai">
-          <span class="article-thumb-emoji">🎬</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat ai">AIツール活用</span>
-            <time class="article-date">2025.06.22</time>
-          </div>
-          <h2 class="article-title">AI絵本動画の作り方——Gemini・SunoAI・CapCutを組み合わせて<span class="article-tag-coming">準備中</span></h2>
-          <p class="article-desc">YouTubeチャンネル「AI picture book」で使っている制作フローを全公開。ストーリー構成から音楽生成・動画編集まで一連の流れを紹介します。</p>
-        </div>
-      </div>
-
-      <!-- ── Web学習日記 ── -->
-      <div class="article-card" data-cat="web" style="cursor:default;">
-        <div class="article-thumb web">
-          <span class="article-thumb-emoji">💻</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat web">Web学習日記</span>
-            <time class="article-date">2025.06.08</time>
-          </div>
-          <h2 class="article-title">HTML・CSSを始めて1ヶ月——50代でもコードは書ける！<span class="article-tag-coming">準備中</span></h2>
-          <p class="article-desc">Flexboxの概念でつまずき、VS Codeのショートカットに感動した1ヶ月。ゼロから始めたリアルな学習記録をお届けします。</p>
-        </div>
-      </div>
-
-      <div class="article-card" data-cat="web" style="cursor:default;">
-        <div class="article-thumb web">
-          <span class="article-thumb-emoji">🌐</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat web">Web学習日記</span>
-            <time class="article-date">2025.06.20</time>
-          </div>
-          <h2 class="article-title">WordPressを一昨日から始めました——インストールから初投稿まで<span class="article-tag-coming">準備中</span></h2>
-          <p class="article-desc">ローカル環境の構築、テーマ選び、最初の記事投稿まで。HTML/CSSを先に学んでいたおかげで感じたこと、気づいたことを率直に書きます。</p>
-        </div>
-      </div>
-
-      <div class="article-card" data-cat="web" style="cursor:default;">
-        <div class="article-thumb web">
-          <span class="article-thumb-emoji">🐙</span>
-        </div>
-        <div>
-          <div class="article-meta">
-            <span class="article-cat web">Web学習日記</span>
-            <time class="article-date">2025.06.28</time>
-          </div>
-          <h2 class="article-title">GitHubにポートフォリオを公開した話——Pages設定の手順メモ<span class="article-tag-coming">準備中</span></h2>
-          <p class="article-desc">GitHub Pagesで自分のポートフォリオを世界に公開するまでの手順をスクリーンショット付きでわかりやすくまとめました。</p>
-        </div>
-      </div>
-
-    </div><!-- /.articles-list -->
+    <div class="loading-state" id="loadingState">
+      <div class="loading-spinner"></div>
+      記事を読み込んでいます…
+    </div>
+    <div class="articles-list" id="articlesList" style="display:none;"></div>
     <p class="no-articles" id="noArticles">該当する記事がありません。</p>
   </section>
-
-  <!-- サイドバー -->
   <aside class="blog-sidebar">
-
-    <!-- プロフィール -->
     <div class="sidebar-widget">
       <h3 class="sidebar-widget-title">About me</h3>
       <div class="sidebar-profile-icon">🌸</div>
       <p class="sidebar-profile-name">sonosann（薗田さつき）</p>
       <p class="sidebar-profile-desc">看護師・ケアマネジャー歴30年以上。AIとWebデザインの世界へ転身中。宮崎在住フリーランス。</p>
     </div>
-
-    <!-- カテゴリー -->
     <div class="sidebar-widget">
       <h3 class="sidebar-widget-title">Category</h3>
       <ul class="sidebar-cat-list">
-        <li>
-          <a href="#" data-filter="career">
-            🏥 キャリア転換
-            <span class="sidebar-cat-count">3</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" data-filter="ai">
-            🤖 AIツール活用
-            <span class="sidebar-cat-count">3</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" data-filter="web">
-            💻 Web学習日記
-            <span class="sidebar-cat-count">3</span>
-          </a>
-        </li>
+        <li><a href="#" data-filter="career"><span>🏥 キャリア転換</span><span class="sidebar-cat-count" id="count-career">-</span></a></li>
+        <li><a href="#" data-filter="ai"><span>🤖 AIツール活用</span><span class="sidebar-cat-count" id="count-ai">-</span></a></li>
+        <li><a href="#" data-filter="web"><span>💻 Web学習日記</span><span class="sidebar-cat-count" id="count-web">-</span></a></li>
       </ul>
     </div>
-
-    <!-- 外部リンク -->
     <div class="sidebar-widget">
       <h3 class="sidebar-widget-title">Links</h3>
       <ul class="sidebar-link-list">
-        <li>
-          <a href="index.html">
-            <span class="sidebar-link-icon">🗂</span>
-            Portfolio サイト
-          </a>
-        </li>
-        <li>
-          <a href="https://coconala.com/users/5975070" target="_blank" rel="noopener">
-            <span class="sidebar-link-icon">🛍</span>
-            Coconala プロフィール
-          </a>
-        </li>
-        <li>
-          <a href="https://crowdworks.jp/public/employees/6735369" target="_blank" rel="noopener">
-            <span class="sidebar-link-icon">💼</span>
-            CrowdWorks プロフィール
-          </a>
-        </li>
-        <li>
-          <a href="https://www.youtube.com/@vu24kpye/playlists" target="_blank" rel="noopener">
-            <span class="sidebar-link-icon">▶</span>
-            YouTube（さつき）
-          </a>
-        </li>
-        <li>
-          <a href="https://www.youtube.com/@AIpicturebook-oc4fl/playlists" target="_blank" rel="noopener">
-            <span class="sidebar-link-icon">▶</span>
-            YouTube（AI picture book）
-          </a>
-        </li>
+        <li><a href="index.html"><span>🗂</span>Portfolio サイト</a></li>
+        <li><a href="https://coconala.com/users/5975070" target="_blank" rel="noopener"><span>🛍</span>Coconala プロフィール</a></li>
+        <li><a href="https://crowdworks.jp/public/employees/6735369" target="_blank" rel="noopener"><span>💼</span>CrowdWorks プロフィール</a></li>
+        <li><a href="https://www.youtube.com/@vu24kpye/playlists" target="_blank" rel="noopener"><span>▶</span>YouTube（さつき）</a></li>
+        <li><a href="https://www.youtube.com/@AIpicturebook-oc4fl/playlists" target="_blank" rel="noopener"><span>▶</span>YouTube（AI picture book）</a></li>
       </ul>
     </div>
-
   </aside>
 </main>
 
-<!-- フッター -->
-<footer class="footer">
-  <p>© 2026 sonosann. All rights reserved.</p>
-</footer>
-
+<footer class="footer"><p>© 2026 sonosann. All rights reserved.</p></footer>
 <script src="script.js"></script>
 <script>
-  // ---- カテゴリーフィルター ----
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const sidebarCatLinks = document.querySelectorAll('[data-filter]');
-  const cards = document.querySelectorAll('.article-card');
-  const noArticles = document.getElementById('noArticles');
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX0xn1BccWiAW9Z-BHM74LZQ2DjUyNDd9nZRKcpFYMJAmvBDbJWHW5mlkCdl5cT3qgEWw262To_nM/pub?gid=0&single=true&output=csv';
+const catLabel = { career:'キャリア転換', ai:'AIツール活用', web:'Web学習日記' };
+const catEmoji = { career:'🏥', ai:'🤖', web:'💻' };
 
-  function filterCards(cat) {
-    let visible = 0;
-    cards.forEach(card => {
-      if (cat === 'all' || card.dataset.cat === cat) {
-        card.classList.remove('hidden');
-        visible++;
-      } else {
-        card.classList.add('hidden');
-      }
-    });
-    noArticles.style.display = visible === 0 ? 'block' : 'none';
-
-    // フィルターボタンのactive切替
-    filterBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.cat === cat);
-    });
+function parseCSV(text) {
+  const rows = []; let row = [], cell = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], n = text[i+1];
+    if (c==='"') { if(inQ&&n==='"'){cell+='"';i++;}else inQ=!inQ; }
+    else if (c===','&&!inQ) { row.push(cell.trim()); cell=''; }
+    else if ((c==='\n'||(c==='\r'&&n==='\n'))&&!inQ) {
+      if(c==='\r')i++; row.push(cell.trim()); rows.push(row); row=[]; cell='';
+    } else cell+=c;
   }
+  if(cell||row.length){row.push(cell.trim());rows.push(row);}
+  if(rows.length<2) return [];
+  const h=rows[0];
+  return rows.slice(1).filter(r=>r.some(v=>v)).map(r=>{const o={};h.forEach((k,i)=>o[k]=r[i]||'');return o;});
+}
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => filterCards(btn.dataset.cat));
-  });
+function createCard(p) {
+  const cat=p.category||'other', emo=catEmoji[cat]||'📝', label=catLabel[cat]||cat;
+  const thumb=p.image_url
+    ?`<div class="article-thumb ${cat}"><img src="${p.image_url}" alt="" onerror="this.parentElement.innerHTML='<span class=\\'article-thumb-emoji\\'>${emo}</span>'"></div>`
+    :`<div class="article-thumb ${cat}"><span class="article-thumb-emoji">${emo}</span></div>`;
+  return `<a class="article-card" data-cat="${cat}" href="post.html?id=${encodeURIComponent(p.id)}">
+    ${thumb}
+    <div>
+      <div class="article-meta">
+        <span class="article-cat ${cat}">${label}</span>
+        <time class="article-date">${p.date||''}</time>
+      </div>
+      <h2 class="article-title">${p.title||''}</h2>
+      <p class="article-desc">${p.excerpt||''}</p>
+    </div>
+  </a>`;
+}
 
-  // サイドバーのカテゴリーリンク
-  sidebarCatLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      filterCards(link.dataset.filter);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+function applyFilter(cat) {
+  document.querySelectorAll('.article-card').forEach(c=>c.classList.toggle('hidden',cat!=='all'&&c.dataset.cat!==cat));
+  const v=document.querySelectorAll('.article-card:not(.hidden)').length;
+  document.getElementById('noArticles').style.display=v===0?'block':'none';
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.cat===cat));
+}
+
+fetch(SHEET_URL)
+  .then(r=>{if(!r.ok)throw new Error();return r.text();})
+  .then(text=>{
+    const posts=parseCSV(text)
+      .filter(p=>(p.status||'').toLowerCase()!=='draft')
+      .sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+    const list=document.getElementById('articlesList');
+    list.innerHTML=posts.length?posts.map(createCard).join(''):'<p style="color:#aaa;text-align:center;padding:2rem 0;font-size:.85rem;">まだ記事がありません。</p>';
+    document.getElementById('loadingState').style.display='none';
+    list.style.display='flex';
+    ['career','ai','web'].forEach(cat=>{
+      const el=document.getElementById('count-'+cat);
+      if(el)el.textContent=posts.filter(p=>p.category===cat).length;
     });
+  })
+  .catch(()=>{
+    document.getElementById('loadingState').innerHTML='<div class="error-state">📋 記事データを読み込めませんでした。<br>Google Sheets の「ウェブに公開」設定を確認してください。</div>';
   });
+
+document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>applyFilter(b.dataset.cat)));
+document.querySelectorAll('[data-filter]').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();applyFilter(l.dataset.filter);window.scrollTo({top:0,behavior:'smooth'});}));
 </script>
 </body>
 </html>
