@@ -212,6 +212,11 @@ fetch(SHEET_URL)
 
 document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>applyFilter(b.dataset.cat)));
 document.querySelectorAll('[data-filter]').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();applyFilter(l.dataset.filter);window.scrollTo({top:0,behavior:'smooth'});}));
+
+// script.js がナビのBLOGリンクを書き換える場合の修正
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  if(a.textContent.trim()==='BLOG') a.href='blog.html';
+});
 </script>
 </body>
 </html>
