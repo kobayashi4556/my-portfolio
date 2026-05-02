@@ -144,7 +144,23 @@
 </main>
 
 <footer class="footer"><p>© 2026 sonosann. All rights reserved.</p></footer>
-<script src="script.js"></script>
+<script>
+// ナビゲーション（script.jsを使わず直接記述）
+const nav = document.getElementById('nav');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('active');
+    navLinks.classList.remove('open');
+  });
+});
+</script>
 <script>
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX0xn1BccWiAW9Z-BHM74LZQ2DjUyNDd9nZRKcpFYMJAmvBDbJWHW5mlkCdl5cT3qgEWw262To_nM/pub?gid=0&single=true&output=csv';
 const catLabel = { career:'キャリア転換', ai:'AIツール活用', web:'Web学習日記' };
