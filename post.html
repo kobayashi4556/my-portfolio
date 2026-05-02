@@ -325,6 +325,8 @@ fetch(SHEET_URL)
     document.getElementById('loadingFull').style.display='none';
     document.getElementById('errorFull').style.display='flex';
   });
+// script.js がナビのBLOGリンクを書き換える場合の修正
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  if(a.textContent.trim()==='BLOG') a.href='blog.html';
+});
 </script>
-</body>
-</html>
