@@ -22,7 +22,7 @@
   .blog-filter-wrap { background:#f8f6f2; border-bottom:1px solid rgba(0,0,0,.06); position:sticky; top:0; z-index:100; }
   .blog-filter-inner { max-width:960px; margin:0 auto; padding:0 1.5rem; display:flex; gap:.25rem; overflow-x:auto; scrollbar-width:none; }
   .blog-filter-inner::-webkit-scrollbar { display:none; }
-  .filter-btn { flex-shrink:0; padding:.85rem 1.25rem; font-family:'Noto Sans JP',sans-serif; font-size:.78rem; font-weight:400; letter-spacing:.06em; color:#6b6560; background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; transition:color .2s,border-color .2s; white-space:nowrap; }
+  .filter-btn { flex-shrink:0; padding:.85rem 1.25rem; font-family:'Noto Sans JP',sans-serif; font-size:.78rem; font-weight:400; letter-spacing:.06em; color:#6b6560; background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; transition:color .2s,border-color .2s; white-space:nowrap; display:inline-flex; align-items:center; gap:.4rem; }
   .filter-btn:hover { color:#2d2d44; }
   .filter-btn.active { color:#2d2d44; border-bottom-color:#b4a078; font-weight:500; }
   .blog-main { max-width:960px; margin:0 auto; padding:3rem 1.5rem 5rem; display:grid; grid-template-columns:1fr 280px; gap:3rem; align-items:start; }
@@ -62,7 +62,8 @@
   .sidebar-profile-name { font-family:'Noto Sans JP',sans-serif; font-size:.85rem; font-weight:500; color:#2d2d2d; margin-bottom:.25rem; }
   .sidebar-profile-desc { font-size:.75rem; color:#7a7570; line-height:1.7; font-family:'Noto Sans JP',sans-serif; font-weight:300; }
   .sidebar-cat-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; }
-  .sidebar-cat-list li a { display:flex; justify-content:space-between; align-items:center; font-size:.8rem; color:#5a5550; font-family:'Noto Sans JP',sans-serif; font-weight:300; text-decoration:none; padding:.3rem 0; transition:color .2s; }
+  .sidebar-cat-list li a { display:flex; justify-content:space-between; align-items:center; gap:.4rem; font-size:.8rem; color:#5a5550; font-family:'Noto Sans JP',sans-serif; font-weight:300; text-decoration:none; padding:.3rem 0; transition:color .2s; }
+  .sidebar-cat-list li a span:first-child { display:inline-flex; align-items:center; gap:.4rem; }
   .sidebar-cat-list li a:hover { color:#b4a078; }
   .sidebar-cat-count { font-size:.7rem; color:#aaa; font-family:'Cormorant Garamond',serif; }
   .sidebar-link-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; }
@@ -102,10 +103,10 @@
 <div class="blog-filter-wrap">
   <div class="blog-filter-inner">
     <button class="filter-btn active" data-cat="all">すべて</button>
-    <button class="filter-btn" data-cat="career">🌸 59歳からの挑戦</button>
-    <button class="filter-btn" data-cat="nurse">🩺 ナース・ケアマネ日記</button>
-    <button class="filter-btn" data-cat="ai">🤖 AIツール活用</button>
-    <button class="filter-btn" data-cat="web">💻 Web学習日記</button>
+    <button class="filter-btn" data-cat="career"><img src="image/blog-icon-career.png" alt="" width="20" height="20"> 59歳からの挑戦</button>
+    <button class="filter-btn" data-cat="nurse"><img src="image/blog-icon-nurse.png" alt="" width="20" height="20"> ナース・ケアマネ日記</button>
+    <button class="filter-btn" data-cat="ai"><img src="image/blog-icon-ai.png" alt="" width="20" height="20"> AIツール活用</button>
+    <button class="filter-btn" data-cat="web"><img src="image/blog-icon-web.png" alt="" width="20" height="20"> Web学習日記</button>
   </div>
 </div>
 
@@ -128,10 +129,10 @@
     <div class="sidebar-widget">
       <h3 class="sidebar-widget-title">Category</h3>
       <ul class="sidebar-cat-list">
-        <li><a href="#" data-filter="career"><span>🌸 59歳からの挑戦</span><span class="sidebar-cat-count" id="count-career">-</span></a></li>
-        <li><a href="#" data-filter="nurse"><span>🩺 ナース・ケアマネ日記</span><span class="sidebar-cat-count" id="count-nurse">-</span></a></li>
-        <li><a href="#" data-filter="ai"><span>🤖 AIツール活用</span><span class="sidebar-cat-count" id="count-ai">-</span></a></li>
-        <li><a href="#" data-filter="web"><span>💻 Web学習日記</span><span class="sidebar-cat-count" id="count-web">-</span></a></li>
+        <li><a href="#" data-filter="career"><span><img src="image/blog-icon-career.png" alt="" width="20" height="20"> 59歳からの挑戦</span><span class="sidebar-cat-count" id="count-career">-</span></a></li>
+        <li><a href="#" data-filter="nurse"><span><img src="image/blog-icon-nurse.png" alt="" width="20" height="20"> ナース・ケアマネ日記</span><span class="sidebar-cat-count" id="count-nurse">-</span></a></li>
+        <li><a href="#" data-filter="ai"><span><img src="image/blog-icon-ai.png" alt="" width="20" height="20"> AIツール活用</span><span class="sidebar-cat-count" id="count-ai">-</span></a></li>
+        <li><a href="#" data-filter="web"><span><img src="image/blog-icon-web.png" alt="" width="20" height="20"> Web学習日記</span><span class="sidebar-cat-count" id="count-web">-</span></a></li>
       </ul>
     </div>
     <div class="sidebar-widget">
