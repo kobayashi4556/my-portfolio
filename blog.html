@@ -36,12 +36,14 @@
   .article-thumb img { width:100%; height:100%; object-fit:cover; }
   .article-thumb-emoji { font-size:2rem; line-height:1; }
   .article-thumb.career { background:linear-gradient(135deg,#e8e0d0,#d4c8b0); }
+  .article-thumb.nurse  { background:linear-gradient(135deg,#e8d0d8,#d4b0bc); }
   .article-thumb.ai     { background:linear-gradient(135deg,#d0d8e8,#b0b8d4); }
   .article-thumb.web    { background:linear-gradient(135deg,#d0e8d4,#b0d4b4); }
   .article-thumb.other  { background:linear-gradient(135deg,#e8e0e8,#d0b8d0); }
   .article-meta { display:flex; align-items:center; gap:.6rem; margin-bottom:.4rem; flex-wrap:wrap; }
   .article-cat { font-size:.68rem; letter-spacing:.06em; padding:.2em .7em; border-radius:2px; font-family:'Noto Sans JP',sans-serif; font-weight:400; }
   .article-cat.career { background:#f0ebe0; color:#7a6a4a; }
+  .article-cat.nurse  { background:#f0e0e8; color:#7a4a5a; }
   .article-cat.ai     { background:#e0e8f0; color:#3a5070; }
   .article-cat.web    { background:#e0f0e4; color:#3a6040; }
   .article-cat.other  { background:#ede0f0; color:#5a3a70; }
@@ -100,7 +102,8 @@
 <div class="blog-filter-wrap">
   <div class="blog-filter-inner">
     <button class="filter-btn active" data-cat="all">すべて</button>
-    <button class="filter-btn" data-cat="career">🏥 キャリア転換</button>
+    <button class="filter-btn" data-cat="career">🌸 59歳からの挑戦</button>
+    <button class="filter-btn" data-cat="nurse">🩺 ナース・ケアマネ日記</button>
     <button class="filter-btn" data-cat="ai">🤖 AIツール活用</button>
     <button class="filter-btn" data-cat="web">💻 Web学習日記</button>
   </div>
@@ -125,7 +128,8 @@
     <div class="sidebar-widget">
       <h3 class="sidebar-widget-title">Category</h3>
       <ul class="sidebar-cat-list">
-        <li><a href="#" data-filter="career"><span>🏥 キャリア転換</span><span class="sidebar-cat-count" id="count-career">-</span></a></li>
+        <li><a href="#" data-filter="career"><span>🌸 59歳からの挑戦</span><span class="sidebar-cat-count" id="count-career">-</span></a></li>
+        <li><a href="#" data-filter="nurse"><span>🩺 ナース・ケアマネ日記</span><span class="sidebar-cat-count" id="count-nurse">-</span></a></li>
         <li><a href="#" data-filter="ai"><span>🤖 AIツール活用</span><span class="sidebar-cat-count" id="count-ai">-</span></a></li>
         <li><a href="#" data-filter="web"><span>💻 Web学習日記</span><span class="sidebar-cat-count" id="count-web">-</span></a></li>
       </ul>
@@ -145,7 +149,7 @@
 
 <footer class="footer"><p>© 2026 sonosann. All rights reserved.</p></footer>
 <script>
-// ナビゲーション（script.jsを使わず直接記述）
+// ナビゲーション
 const nav = document.getElementById('nav');
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
@@ -163,8 +167,19 @@ navLinks.querySelectorAll('a').forEach(link => {
 </script>
 <script>
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX0xn1BccWiAW9Z-BHM74LZQ2DjUyNDd9nZRKcpFYMJAmvBDbJWHW5mlkCdl5cT3qgEWw262To_nM/pub?gid=0&single=true&output=csv';
-const catLabel = { career:'キャリア転換', ai:'AIツール活用', web:'Web学習日記' };
-const catEmoji = { career:'🏥', ai:'🤖', web:'💻' };
+
+const catLabel = {
+  career: '59歳からの挑戦',
+  nurse:  'ナース・ケアマネ日記',
+  ai:     'AIツール活用',
+  web:    'Web学習日記'
+};
+const catEmoji = {
+  career: '🌸',
+  nurse:  '🩺',
+  ai:     '🤖',
+  web:    '💻'
+};
 
 function parseCSV(text) {
   const rows = []; let row = [], cell = '', inQ = false;
@@ -217,7 +232,7 @@ fetch(SHEET_URL)
     list.innerHTML=posts.length?posts.map(createCard).join(''):'<p style="color:#aaa;text-align:center;padding:2rem 0;font-size:.85rem;">まだ記事がありません。</p>';
     document.getElementById('loadingState').style.display='none';
     list.style.display='flex';
-    ['career','ai','web'].forEach(cat=>{
+    ['career','nurse','ai','web'].forEach(cat=>{
       const el=document.getElementById('count-'+cat);
       if(el)el.textContent=posts.filter(p=>p.category===cat).length;
     });
@@ -229,7 +244,6 @@ fetch(SHEET_URL)
 document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>applyFilter(b.dataset.cat)));
 document.querySelectorAll('[data-filter]').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();applyFilter(l.dataset.filter);window.scrollTo({top:0,behavior:'smooth'});}));
 
-// script.js がナビのBLOGリンクを書き換える場合の修正
 document.querySelectorAll('.nav-links a').forEach(a=>{
   if(a.textContent.trim()==='BLOG') a.href='blog.html';
 });
