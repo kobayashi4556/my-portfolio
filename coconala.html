@@ -9,6 +9,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  .blog-nav-section{background:#f5f0e8;padding:5rem 1.5rem;text-align:center;}
+  .blog-nav-label{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.35em;color:#b4a078;text-transform:uppercase;display:block;margin-bottom:1rem;}
+  .blog-nav-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:#1a1a2e;letter-spacing:.1em;margin-bottom:.75rem;}
+  .blog-nav-desc{font-family:'Noto Sans JP',sans-serif;font-size:.85rem;font-weight:300;color:#4a4540;letter-spacing:.08em;line-height:1.9;margin-bottom:2.5rem;}
+  .blog-nav-line{width:48px;height:1px;background:#b4a078;margin:0 auto 2.5rem;opacity:.6;}
+  .blog-nav-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;max-width:760px;margin:0 auto 2.5rem;}
+  .blog-nav-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;font-family:'Noto Sans JP',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.06em;border-radius:4px;border-width:1px;border-style:solid;text-decoration:none;transition:opacity .2s;white-space:nowrap;}
+  .blog-nav-btn:hover{opacity:.8;}
+  .blog-nav-btn.career{background:#fce8f0;border-color:#e8b0cc;color:#7a2a4a;}
+  .blog-nav-btn.nurse{background:#fff8d6;border-color:#e8d880;color:#6a5a10;}
+  .blog-nav-btn.ai{background:#ededeb;border-color:#c0bfba;color:#3a3a38;}
+  .blog-nav-btn.web{background:#e6f1fb;border-color:#90bce8;color:#0c447c;}
+  .blog-nav-btn-emoji{font-size:16px;line-height:1;}
+  .blog-nav-all{font-family:'Cormorant Garamond',serif;font-size:.88rem;letter-spacing:.15em;color:#b4a078;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:opacity .2s;}
+  .blog-nav-all:hover{opacity:.75;}
+  @media(max-width:480px){.blog-nav-btn{width:100%;justify-content:center;}}
+</style>
 </head>
 <body>
 
@@ -212,102 +230,22 @@
 
 <div class="divider"></div>
 
-<!-- Blog -->
-<section id="blog">
-  <div class="fade-in">
-    <p class="section-label">Blog</p>
-    <h2 class="section-title">ブログ</h2>
-    <p class="section-lead">看護師・ケアマネからフリーランスへの転換記録、AIツールの活用法、Webデザイン学習の日々を綴っています。</p>
+<!-- ===== Blog 誘導セクション ===== -->
+<section id="blog" class="blog-nav-section">
+  <span class="blog-nav-label">sonosann's journal</span>
+  <h2 class="blog-nav-title">Blog</h2>
+  <p class="blog-nav-desc">
+    看護師・ケアマネからフリーランスへ。<br>
+    AI・Webデザイン・キャリア転換の記録。
+  </p>
+  <div class="blog-nav-line"></div>
+  <div class="blog-nav-buttons">
+    <a href="blog.html?cat=career" class="blog-nav-btn career"><span class="blog-nav-btn-emoji">🌸</span> 59歳からの挑戦</a>
+    <a href="blog.html?cat=nurse"  class="blog-nav-btn nurse"><span class="blog-nav-btn-emoji">🩺</span> ナース・ケアマネ日記</a>
+    <a href="blog.html?cat=ai"     class="blog-nav-btn ai"><span class="blog-nav-btn-emoji">🤖</span> AIツール活用</a>
+    <a href="blog.html?cat=web"    class="blog-nav-btn web"><span class="blog-nav-btn-emoji">💻</span> Web学習日記</a>
   </div>
-  <div class="blog-tabs fade-in">
-    <button class="blog-tab active" data-cat="all">すべて</button>
-    <button class="blog-tab" data-cat="career">🏥 キャリア転換</button>
-    <button class="blog-tab" data-cat="ai">🤖 AIツール活用</button>
-    <button class="blog-tab" data-cat="web">💻 Web学習日記</button>
-  </div>
-  <div class="blog-grid" id="blogGrid">
-    <article class="blog-card fade-in" data-cat="career">
-      <div class="blog-card-cat career">🏥 キャリア転換</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.01</time>
-        <h3 class="blog-card-title">看護師30年、なぜ私はフリーランスを選んだのか</h3>
-        <p class="blog-card-desc">現場で感じた「もっとできることがあるはず」という思いが、私をAIとWebデザインの世界へと引き寄せました。転換のきっかけと決断の理由を正直に綴ります。</p>
-        <a href="https://coconala.com/blogs/5975070/720354" class="blog-card-link" target="_blank">続きを読む →</a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="career">
-      <div class="blog-card-cat career">🏥 キャリア転換</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.10</time>
-        <h3 class="blog-card-title">クラウドワークスに登録してみた——初めての案件応募体験記</h3>
-        <p class="blog-card-desc">プロフィール作成から最初の応募まで、戸惑ったこと・気づいたこと。AIを使ってyoutubeを運営していた経験がどう武器になるかを実感した話です。</p>
-        <a href="https://coconala.com/blogs/5975070/724079" class="blog-card-link" target="_blank">続きを読む →</a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="career">
-      <div class="blog-card-cat career">🏥 キャリア転換</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.18</time>
-        <h3 class="blog-card-title">スキルアップ支援制度を活用して講座を受講——手続きの流れを解説</h3>
-        <p class="blog-card-desc">再就職支援・スキルアップ給付金の申請から受給まで。同じように転換を考えている方へ、実体験をもとにわかりやすくまとめました。</p>
-        <a href="#" class="blog-card-link">続きを読む →<span>（準備中）</span></a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="ai">
-      <div class="blog-card-cat ai">🤖 AIツール活用</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.05</time>
-        <h3 class="blog-card-title">Google Geminiで介護書類を自動作成——ケアマネが試してみた</h3>
-        <p class="blog-card-desc">課題整理総括表や支援経過記録をAIで下書きする方法を実践レポート。現場の方でも使えるプロンプトの書き方も紹介します。</p>
-        <a href="#" class="blog-card-link">続きを読む →<span>（準備中）</span></a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="ai">
-      <div class="blog-card-cat ai">🤖 AIツール活用</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.14</time>
-        <h3 class="blog-card-title">nanobananaで手書きスケッチをデジタルイラストに変換する方法</h3>
-        <p class="blog-card-desc">紙に描いたラフをスキャンしてAIでデジタル化、さらに着色まで。私が実際に使っているワークフローをステップごとに解説します。</p>
-        <a href="#" class="blog-card-link">続きを読む →<span>（準備中）</span></a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="ai">
-      <div class="blog-card-cat ai">🤖 AIツール活用</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.22</time>
-        <h3 class="blog-card-title">AI絵本動画の作り方——Gemini・SunoAI・CapCutを組み合わせて</h3>
-        <p class="blog-card-desc">YouTubeチャンネル「AI picture book」で使っている制作フローを全公開。ストーリー構成から音楽生成・動画編集まで一連の流れを紹介します。</p>
-        <a href="#" class="blog-card-link">続きを読む →<span>（準備中）</span></a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="web">
-      <div class="blog-card-cat web">💻 Web学習日記</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.08</time>
-        <h3 class="blog-card-title">HTML・CSSを始めて1ヶ月——50代でもコードは書ける！</h3>
-        <p class="blog-card-desc">Flexboxの概念でつまずき、VS Codeのショートカットに感動した1ヶ月。ゼロから始めたリアルな学習記録をお届けします。</p>
-        <a href="#" class="blog-card-link">続きを読む →<span>（準備中）</span></a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="web">
-      <div class="blog-card-cat web">💻 Web学習日記</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.20</time>
-        <h3 class="blog-card-title">WordPressを一昨日から始めました——インストールから初投稿まで</h3>
-        <p class="blog-card-desc">ローカル環境の構築、テーマ選び、最初の記事投稿まで。HTML/CSSを先に学んでいたおかげで感じたこと、気づいたことを率直に書きます。</p>
-        <a href="#" class="blog-card-link">続きを読む →<span>（準備中）</span></a>
-      </div>
-    </article>
-    <article class="blog-card fade-in" data-cat="web">
-      <div class="blog-card-cat web">💻 Web学習日記</div>
-      <div class="blog-card-body">
-        <time class="blog-date">2025.06.28</time>
-        <h3 class="blog-card-title">GitHubにポートフォリオを公開した話——Pages設定の手順メモ</h3>
-        <p class="blog-card-desc">GitHub Pagesで自分のポートフォリオを世界に公開するまでの手順をスクリーンショット付きでわかりやすくまとめました。</p>
-        <a href="#" class="blog-card-link">続きを読む →<span>（準備中）</span></a>
-      </div>
-    </article>
-  </div>
+  <a href="blog.html" class="blog-nav-all">すべての記事を読む →</a>
 </section>
 
 <!-- ===== Contact（Coconala版） ===== -->
