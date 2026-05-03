@@ -247,6 +247,12 @@ document.querySelectorAll('[data-filter]').forEach(l=>l.addEventListener('click'
 document.querySelectorAll('.nav-links a').forEach(a=>{
   if(a.textContent.trim()==='BLOG') a.href='blog.html';
 });
+
+// URLパラメータからカテゴリ自動選択
+const params = new URLSearchParams(location.search);
+const initCat = params.get('cat') || 'all';
+applyFilter(initCat);
+
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a1f9d0459302416ba57dc97c5983f7f0"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
