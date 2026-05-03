@@ -12,7 +12,7 @@
   <style>
     /* ===== Blog 誘導セクション ===== */
     .blog-nav-section {
-      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 50%, #1a1a2e 100%);
+      background: #f5f0e8;
       padding: 5rem 1.5rem;
       text-align: center;
     }
@@ -29,7 +29,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 300;
-      color: #f0ebe3;
+      color: #1a1a2e;
       letter-spacing: .1em;
       margin-bottom: .75rem;
     }
@@ -37,7 +37,7 @@
       font-family: 'Noto Sans JP', sans-serif;
       font-size: .85rem;
       font-weight: 300;
-      color: rgba(240,235,227,.6);
+      color: #4a4540;
       letter-spacing: .08em;
       line-height: 1.9;
       margin-bottom: 2.5rem;
@@ -57,28 +57,13 @@
       max-width: 760px;
       margin: 0 auto 2.5rem;
     }
-    .blog-nav-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .85rem 1.6rem;
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: .82rem;
-      font-weight: 400;
-      letter-spacing: .06em;
-      color: rgba(240,235,227,.85);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(180,160,120,.35);
-      border-radius: 2px;
-      text-decoration: none;
-      transition: background .25s, border-color .25s, color .25s;
-      white-space: nowrap;
-    }
-    .blog-nav-btn:hover {
-      background: rgba(180,160,120,.15);
-      border-color: #b4a078;
-      color: #f0ebe3;
-    }
+    .blog-nav-btn         { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 1.6rem; font-family:'Noto Sans JP',sans-serif; font-size:.82rem; font-weight:500; letter-spacing:.06em; border-radius:4px; border-width:1px; border-style:solid; text-decoration:none; transition:opacity .2s; white-space:nowrap; }
+    .blog-nav-btn:hover   { opacity: .8; }
+    .blog-nav-btn.career  { background:#fce8f0; border-color:#e8b0cc; color:#7a2a4a; }
+    .blog-nav-btn.nurse   { background:#fff8d6; border-color:#e8d880; color:#6a5a10; }
+    .blog-nav-btn.ai      { background:#ededeb; border-color:#c0bfba; color:#3a3a38; }
+    .blog-nav-btn.web     { background:#e6f1fb; border-color:#90bce8; color:#0c447c; }
+    .blog-nav-btn-emoji   { font-size: 16px; line-height: 1; }
     .blog-nav-all {
       font-family: 'Cormorant Garamond', serif;
       font-size: .88rem;
@@ -314,10 +299,10 @@
     </p>
     <div class="blog-nav-line"></div>
     <div class="blog-nav-buttons">
-      <a href="blog.html?cat=career" class="blog-nav-btn">🌸 59歳からの挑戦</a>
-      <a href="blog.html?cat=nurse"  class="blog-nav-btn">🩺 ナース・ケアマネ日記</a>
-      <a href="blog.html?cat=ai"     class="blog-nav-btn">🤖 AIツール活用</a>
-      <a href="blog.html?cat=web"    class="blog-nav-btn">💻 Web学習日記</a>
+      <a href="blog.html?cat=career" class="blog-nav-btn career"><span class="blog-nav-btn-emoji">🌸</span> 59歳からの挑戦</a>
+      <a href="blog.html?cat=nurse"  class="blog-nav-btn nurse"><span class="blog-nav-btn-emoji">🩺</span> ナース・ケアマネ日記</a>
+      <a href="blog.html?cat=ai"     class="blog-nav-btn ai"><span class="blog-nav-btn-emoji">🤖</span> AIツール活用</a>
+      <a href="blog.html?cat=web"    class="blog-nav-btn web"><span class="blog-nav-btn-emoji">💻</span> Web学習日記</a>
     </div>
     <a href="blog.html" class="blog-nav-all">すべての記事を読む →</a>
   </section>
