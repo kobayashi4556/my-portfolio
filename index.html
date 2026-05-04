@@ -1,106 +1,377 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポートフォリオ | ナースケアマネ WEBデザイン さつき</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Designer sonosann | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Blog 誘導セクション ===== */
+    .blog-nav-section {
+      background: #f5f0e8;
+      padding: 5rem 1.5rem;
+      text-align: center;
+    }
+    .blog-nav-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .75rem;
+      letter-spacing: .35em;
+      color: #b4a078;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .blog-nav-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      color: #1a1a2e;
+      letter-spacing: .1em;
+      margin-bottom: .75rem;
+    }
+    .blog-nav-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: .85rem;
+      font-weight: 300;
+      color: #4a4540;
+      letter-spacing: .08em;
+      line-height: 1.9;
+      margin-bottom: 2.5rem;
+    }
+    .blog-nav-line {
+      width: 48px;
+      height: 1px;
+      background: #b4a078;
+      margin: 0 auto 2.5rem;
+      opacity: .6;
+    }
+    .blog-nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 760px;
+      margin: 0 auto 2.5rem;
+    }
+    .blog-nav-btn         { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 1.6rem; font-family:'Noto Sans JP',sans-serif; font-size:.82rem; font-weight:500; letter-spacing:.06em; border-radius:4px; border-width:1px; border-style:solid; text-decoration:none; transition:opacity .2s; white-space:nowrap; }
+    .blog-nav-btn:hover   { opacity: .8; }
+    .blog-nav-btn.career  { background:#fce8f0; border-color:#e8b0cc; color:#7a2a4a; }
+    .blog-nav-btn.nurse   { background:#fff8d6; border-color:#e8d880; color:#6a5a10; }
+    .blog-nav-btn.ai      { background:#ededeb; border-color:#c0bfba; color:#3a3a38; }
+    .blog-nav-btn.web     { background:#e6f1fb; border-color:#90bce8; color:#0c447c; }
+    .blog-nav-btn-emoji   { font-size: 16px; line-height: 1; }
+    .blog-nav-all {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .88rem;
+      letter-spacing: .15em;
+      color: #b4a078;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: opacity .2s;
+    }
+    .blog-nav-all:hover { opacity: .75; }
+    @media (max-width: 480px) {
+      .blog-nav-btn { width: 100%; justify-content: center; }
+    }
+  </style>
 </head>
 <body>
 
-    <section class="portfolio-banner">
-        <div class="container">
-            <div class="content-left">
-                <div class="logo">
-                    <span>ナースケアマネ WEBデザイン<br>さつき</span>
-                </div>
-                <h1 class="main-copy">
-                    医療と介護の「通訳者」として、現場をデザインで支える
-                </h1>
-                <ul class="features">
-                    <li><strong>現場理解:</strong> 看護師20年、ケアマネ7年の実務経験（専門用語が通じる安心感）。</li>
-                    <li><strong>情報整理力:</strong> YouTubeでの制度要約実績（複雑な制度をシンプルに図解する力）。</li>
-                    <li><strong>最新技術の活用:</strong> AI（Gemini等）を活用したスピーディーかつ高品質なコンテンツ制作。</li>
-                </ul>
-                <a href="#" class="btn-more">もっと読む</a>
-            </div>
-            <div class="content-right">
-                <div class="image-frame">
-                    <img src="photo1.jpeg" alt="打ち合わせの様子">
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ナビゲーション -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">Nurse Care Manager Web Designer sonosann</a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#ai-works">AI Works</a></li>
+        <li><a href="#competition">Competition</a></li>
+        <li><a href="#html-works">Web Design</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="blog.html">BLOG</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <section class="about-section">
-        <div class="container about-container">
-            <div class="about-text">
-                <p class="large-text">
-                    20年以上の病院看護師および訪問看護の経験に加え、ケアマネジャーとして地域包括支援センターやグループホームなど、多岐にわたる現場を歩んできました。現場で感じたのは、医療と介護の連携における「情報の伝え方」の重要性です。
-                </p>
-                <p class="small-text">
-                    2026年よりWebデザインの世界へ転身し、現在はHTML/CSSに加え、Gemini等の最新AIツールを駆使してYouTubeで介護保険制度の解説動画を配信しています。私の強みは、医療・介護双方の専門知識と、複雑な情報を整理して伝える発信力です。「現場が本当に使いやすいWeb」を通じて、多職種連携の架け橋となり、より良いケア環境の構築をサポートいたします。
-                </p>
-            </div>
+  <!-- ヒーロー -->
+  <section class="hero" id="top">
+    <div class="hero-image-wrap">
+      <img src="image/top.png" alt="トップ画像" class="hero-img" id="heroImg">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-sub fade-up">Nurse &amp; Care Manager → Web Designer &amp; AI Creator</p>
+      <h1 class="hero-title fade-up delay-1">Nurse Care Manager Web Designer sonosann</h1>
+      <p class="hero-desc fade-up delay-2">30年の医療・介護経験 × AI・Webデザインで<br>新しい価値を創る</p>
+      <a href="#ai-works" class="hero-btn fade-up delay-3">Works を見る</a>
+    </div>
+    <div class="hero-scroll">
+      <span></span>
+    </div>
+  </section>
 
-            <div class="about-menu">
-                <h2 class="menu-title">会社紹介</h2>
-                <div class="menu-item">
-                    <div class="icon-circle">M</div>
-                    <span class="menu-label">メッセージ</span>
-                </div>
-                <div class="menu-item">
-                    <div class="icon-circle">S</div>
-                    <span class="menu-label">従業員</span>
-                </div>
-                <div class="menu-item">
-                    <div class="icon-circle">V</div>
-                    <span class="menu-label">私たちの価値</span>
-                </div>
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-lead">看護師・ケアマネジャーとして30年以上のキャリアを積み、<br>AIとWebデザインの世界へ転身中。</p>
+          <p>医療・介護現場での実務経験をベースに、AIツールを駆使したコンテンツ制作とWebデザインを学んでいます。複数のAIを組み合わせた動画制作・画像生成・文書自動化を実践しており、現場目線の課題解決力が強みです。</p>
+          <div class="about-tags">
+            <span>看護師</span>
+            <span>ケアマネジャー</span>
+            <span>AI活用</span>
+            <span>YouTube運営</span>
+            <span>Webデザイン学習中</span>
+            <span>フリーランス</span>
+          </div>
+        </div>
+        <div class="about-channels">
+          <h3>YouTube チャンネル</h3>
+          <a class="channel-card" href="https://www.youtube.com/@vu24kpye/playlists" target="_blank" rel="noopener">
+            <div class="channel-icon">▶</div>
+            <div>
+              <p class="channel-name">ナース・ケアマネ さつき</p>
+              <p class="channel-desc">医療・介護の現場知識を発信</p>
             </div>
-        </div>
-    </section>
-<section class="youtube-section">
-        <div class="container youtube-container">
-            <h2 class="section-title">こんなyoutubeチャンネル作ってます</h2>
-            
-           <div class="youtube-grid">
-    <a href="https://www.youtube.com/@vu24kpye/featured" target="_blank" class="youtube-card">
-        <div class="card-image">
-            <img src="yt-thumb1.png" alt="ナースケアマネ さつき">
-        </div>
-        <div class="card-info">
-            <p class="yt-url">VIEW CHANNEL</p>
-            <h3>ナースケアマネ さつき</h3>
-            <p class="yt-stat">2026年2月現在 登録者200人</p>
-        </div>
-    </a>
-
-    <a href="https://www.youtube.com/@aipicturebook-oc4fl/featured" target="_blank" class="youtube-card">
-        <div class="card-image">
-            <img src="yt-thumb2.png" alt="AI picture book">
-        </div>
-        <div class="card-info">
-            <p class="yt-url">VIEW CHANNEL</p>
-            <h3>AI picture book</h3>
-            <p class="yt-stat">2026年2月現在 登録者800人</p>
-        </div>
-    </a>
-</div>
-
-                <div class="youtube-card">
-                    <div class="card-image placeholder">
-                        <div class="ai-icon">※</div>
-                    </div>
-                    <div class="card-info">
-                        <p class="yt-url">&nbsp;</p>
-                        <h3>使用しているAI</h3>
-                        <p class="yt-stat">&nbsp;</p>
-                    </div>
-                </div>
+          </a>
+          <a class="channel-card" href="https://www.youtube.com/@AIpicturebook-oc4fl/playlists" target="_blank" rel="noopener">
+            <div class="channel-icon">▶</div>
+            <div>
+              <p class="channel-name">AI picture book</p>
+              <p class="channel-desc">AIで作る絵本・動画コンテンツ</p>
             </div>
+          </a>
         </div>
-    </section>
-</body>
-</html>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Works スライドショー -->
+  <section class="section section-light" id="ai-works">
+    <div class="container">
+      <h2 class="section-title">AI Image Works</h2>
+      <p class="section-sub">Google Gemini / Nanobanana Pro を使用したAI画像制作</p>
+      <div class="slideshow" id="aiSlideshow">
+        <div class="slides-wrap" id="aiSlidesWrap">
+          <!-- JS で生成 -->
+        </div>
+        <button class="slide-btn prev" id="aiPrev" aria-label="前へ">&#8592;</button>
+        <button class="slide-btn next" id="aiNext" aria-label="次へ">&#8594;</button>
+        <div class="slide-dots" id="aiDots"></div>
+      </div>
+      <div class="slide-counter" id="aiCounter">1 / 5</div>
+    </div>
+  </section>
+
+  <!-- Competition Works スライドショー -->
+  <section class="section" id="competition">
+    <div class="container">
+      <h2 class="section-title">Competition Works</h2>
+      <p class="section-sub">コンペへの挑戦作品</p>
+      <div class="slideshow" id="workSlideshow">
+        <div class="slides-wrap" id="workSlidesWrap">
+          <!-- JS で生成 -->
+        </div>
+        <button class="slide-btn prev" id="workPrev" aria-label="前へ">&#8592;</button>
+        <button class="slide-btn next" id="workNext" aria-label="次へ">&#8594;</button>
+        <div class="slide-dots" id="workDots"></div>
+      </div>
+      <div class="slide-counter" id="workCounter">1 / 5</div>
+    </div>
+  </section>
+
+  <!-- HTML Works -->
+  <section class="section section-light" id="html-works">
+    <div class="container">
+      <h2 class="section-title">Web Design Works</h2>
+      <p class="section-sub">HTML / CSS / JavaScript でコーディングした制作物</p>
+      <div class="web-grid" id="webGrid">
+        <div class="web-card">
+          <div class="web-card-thumb">
+            <span class="web-card-label">Claudeで初ポートフォリオ作成</span>
+          </div>
+          <div class="web-card-body">
+            <h3>ポートフォリオサイト</h3>
+            <p>自己紹介・実績をまとめたPDFファイルを基にClaudeに特に細かな指示をせずつくらせてみた。</p>
+            <div class="web-card-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://kobayashi4556.github.io/my-portfolio/portfolio.html" class="web-card-link" target="_blank" rel="noopener">GitHub Pages で見る →</a>
+          </div>
+        </div>
+        <div class="web-card">
+          <div class="web-card-thumb web-card-thumb--2">
+            <span class="web-card-label">とあるテスト案件</span>
+          </div>
+          <div class="web-card-body">
+            <h3>レスポンシブ デザイン</h3>
+            <p>本来ならFigmaでのレスポンシブ デザインをClaudeで先にデザインさせたSP版。</p>
+            <div class="web-card-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://kobayashi4556.github.io/my-portfolio/sonosann_scheduled_sp.html" class="web-card-link" target="_blank" rel="noopener">GitHub で見る →</a>
+          </div>
+        </div>
+        <div class="web-card">
+          <div class="web-card-thumb web-card-thumb--3">
+            <span class="web-card-label">とあるテスト案件２</span>
+          </div>
+          <div class="web-card-body">
+            <h3>レスポンシブ デザイン</h3>
+            <p>本来ならFigmaでのレスポンシブ デザイン ・テーマはメール管理のサイト PC版。。</p>
+            <div class="web-card-tags"><span>HTML</span><span>CSS</span></div>
+            <a href="https://kobayashi4556.github.io/my-portfolio/sonosann_draft_list_pc.html" class="web-card-link" target="_blank" rel="noopener">GitHub Pages で見る →</a>
+            <br>
+            <a href="https://kobayashi4556.github.io/my-portfolio/Figma.png" class="web-card-link" target="_blank" rel="noopener">GitHub Pages でFigmaの画像を見る →</a>
+          </div>
+        </div>
+      </div>
+      <p class="web-note">※ リンクは公開後に差し替えてください</p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title">Skills &amp; Tools</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>AI ツール</h3>
+          <ul>
+          <li>Google Gemini</li>
+          <li>Nanobanana Pro</li>
+          <li>Google AI Studio</li>
+          <li>Google NotebookLM</li>
+          <li>Veo </li>
+          <li>SunoAI</li>
+          <li>Claude/Claude code</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>動画・画像編集</h3>
+          <ul>
+            <li>CapCut</li>
+            <li>Wondershare Filmora 14</li>
+            <li>VideoProc Vlogger</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Web 制作</h3>
+          <ul>
+            <li>HTML / CSS</li>
+            <li>JavaScript</li>
+            <li>Figma</li>
+            <li>WordPress</li>
+            <li>Visual Studio Code</li>
+            <li>GitHub / GitHub Pages</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>医療・介護の専門知識</h3>
+          <ul>
+            <li>看護師（30年以上）</li>
+            <li>ケアマネジャー</li>
+            <li>介護福祉書類・申請業務</li>
+            <li>Microsoft Access（DB構築）</li>
+            <li>オンライン会議（Zoom / Google Meet）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== Blog 誘導セクション ===== -->
+  <section id="blog" class="blog-nav-section">
+    <span class="blog-nav-label">sonosann's journal</span>
+    <h2 class="blog-nav-title">Blog</h2>
+    <p class="blog-nav-desc">
+      看護師・ケアマネからフリーランスへ。<br>
+      AI・Webデザイン・キャリア転換の記録。
+    </p>
+    <div class="blog-nav-line"></div>
+    <div class="blog-nav-buttons">
+      <a href="blog.html?cat=career" class="blog-nav-btn career"><span class="blog-nav-btn-emoji">🌸</span> 59歳からの挑戦</a>
+      <a href="blog.html?cat=nurse"  class="blog-nav-btn nurse"><span class="blog-nav-btn-emoji">🩺</span> ナース・ケアマネ日記</a>
+      <a href="blog.html?cat=ai"     class="blog-nav-btn ai"><span class="blog-nav-btn-emoji">🤖</span> AIツール活用</a>
+      <a href="blog.html?cat=web"    class="blog-nav-btn web"><span class="blog-nav-btn-emoji">💻</span> Web学習日記</a>
+    </div>
+    <a href="blog.html" class="blog-nav-all">すべての記事を読む →</a>
+  </section>
+
+  <!-- Contact -->
+  <section class="section section-light" id="contact">
+    <div class="container contact-container">
+      <h2 class="section-title">Contact</h2>
+      <p class="contact-desc">お仕事のご依頼・ご相談はクラウドワークスまたはCoccoalaからお気軽にどうぞ。</p>
+      <div class="contact-links">
+        <a href="https://crowdworks.jp/public/employees/6735369" class="contact-btn" target="_blank" rel="noopener">CrowdWorks プロフィール</a>
+        <a href="https://coconala.com/users/5975070" class="contact-btn contact-btn--outline" target="_blank" rel="noopener">Coconala プロフィール&ブログ</a>
+      </div>
+<!-- Contact -->
+<section class="section section-light" id="contact">
+  <div class="container contact-container">
+    <h2 class="section-title">Contact</h2>
+    <p class="contact-desc">お仕事のご依頼・ご相談はクラウドワークスまたはCoconalaからお気軽にどうぞ。</p>
+    <div class="contact-links">
+      <a href="https://crowdworks.jp/public/employees/6735369" class="contact-btn" target="_blank" rel="noopener">CrowdWorks プロフィール</a>
+      <a href="https://coconala.com/users/5975070" class="contact-btn contact-btn--outline" target="_blank" rel="noopener">Coconala プロフィール&ブログ</a>
+    </div>
+
+    <!-- SNS リンク -->
+    <div class="sns-links">
+      <p class="sns-label">SNS &amp; Channel</p>
+      <div class="sns-grid">
+
+        <a href="https://x.com/satsuki_nscare" class="sns-item" target="_blank" rel="noopener">
+          <svg class="sns-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <span class="sns-text">
+            <span class="sns-name">X（Twitter）</span>
+            <span class="sns-handle">@satsuki_nscare</span>
+          </span>
+        </a>
+
+        <a href="https://www.threads.com/@caremanesonosann" class="sns-item" target="_blank" rel="noopener">
+          <svg class="sns-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.583-1.303-.881-2.348-.89h-.048c-.68 0-1.909.189-2.436 1.572l-1.97-.696C8.166 3.89 9.908 3.23 12.019 3.21c1.65.016 2.963.496 3.9 1.426 1.211 1.202 1.548 2.96 1.496 4.842a8.417 8.417 0 0 1 1.315.834c1.098.851 1.821 1.999 2.094 3.32.559 2.683-.165 5.715-3.509 7.714-1.621.978-3.47 1.622-5.129 1.654z"/>
+          </svg>
+          <span class="sns-text">
+            <span class="sns-name">Threads</span>
+            <span class="sns-handle">@caremanesonosann</span>
+          </span>
+        </a>
+
+        <a href="https://www.youtube.com/@vu24kpye/playlists" class="sns-item" target="_blank" rel="noopener">
+          <svg class="sns-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span class="sns-text">
+            <span class="sns-name">YouTube</span>
+            <span class="sns-handle">ナース・ケアマネ さつき</span>
+          </span>
+        </a>
+
+        <a href="https://www.youtube.com/@AIpicturebook-oc4fl" class="sns-item" target="_blank" rel="noopener">
+          <svg class="sns-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span class="sns-text">
+            <span class="sns-name">YouTube</span>
+            <span class="sns-handle">AI picture book</span>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
