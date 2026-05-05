@@ -555,8 +555,9 @@ overflow: hidden;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease;
+    display: flex;
   }
-  .nav-links.open { max-height: 400px; }
+  .nav-links.open { max-height: 400px; display: flex; }
   .nav-links a {
     display: block;
     padding: 14px 24px;
