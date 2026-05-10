@@ -54,7 +54,7 @@ body {
   padding: 4px 12px;
   border-radius: 20px;
 }
-.badge-nob    { background: #E1F5EE; color: #0F6E56; }
+.badge-nob     { background: #E1F5EE; color: #0F6E56; }
 .badge-client { background: #EEEDFE; color: #534AB7; }
 .badge-both   { background: #FFF3CD; color: #856404; }
 .legend-text  { font-size: 12px; color: #888; }
@@ -162,13 +162,13 @@ body {
 
   <!-- 説明ボックス -->
   <div class="info-box">
-    このプランは「薗田 → <span class="js-client">娘さん</span>」への指示フロー。<span class="js-client">娘さん</span>に収集してもらう情報が揃ったら、次のフェーズへ進む形式です。
+    このプランは「薗田 → <span class="js-client">るナース</span>」への指示フロー。<span class="js-client">るナース</span>に収集してもらう情報が揃ったら、次のフェーズへ進む形式です。
   </div>
 
   <!-- 凡例 -->
   <div class="legend">
     <span class="badge badge-nob">ノブさん</span><span class="legend-text">ノブさんが担当</span>
-    <span class="badge badge-client js-client-badge">娘さん</span><span class="legend-text">クライアントが担当</span>
+    <span class="badge badge-client js-client-badge">るナース</span><span class="legend-text">クライアントが担当</span>
     <span class="badge badge-both">ふたり</span><span class="legend-text">一緒に作業</span>
   </div>
 
@@ -196,7 +196,7 @@ body {
             <div class="task-title">スプレッドシートに回答してもらう</div>
             <div class="task-desc">名前・職種・自己PR・スキル・実績・連絡先 など<br>写真（顔写真 or アイコン）もあれば準備</div>
           </td>
-          <td><span class="badge badge-client js-client-badge">娘さん</span></td>
+          <td><span class="badge badge-client js-client-badge">るナース</span></td>
           <td class="task-deadline">5/14（水）</td>
         </tr>
         <tr>
@@ -205,7 +205,7 @@ body {
             <div class="task-title">GitHubアカウントを作ってもらう</div>
             <div class="task-desc">まだ持っていない場合のみ。手順書PDFを参考に作成</div>
           </td>
-          <td><span class="badge badge-client js-client-badge">娘さん</span></td>
+          <td><span class="badge badge-client js-client-badge">るナース</span></td>
           <td class="task-deadline">5/14（水）</td>
         </tr>
       </tbody>
@@ -323,8 +323,8 @@ body {
   /* =============================================
      ★ クライアントごとにここだけ変更する ★
      ============================================= */
-  const CLIENT_NAME = "娘さん";   // ← クライアント名
-  const SHEET_URL   = "#";        // ← スプレッドシートURL
+  const CLIENT_NAME = "るナース";   // ← クライアント名
+  const SHEET_URL   = "#";         // ← スプレッドシートURL
 
   /* 以下は変更不要 */
   document.querySelectorAll('.js-client').forEach(el => el.textContent = CLIENT_NAME);
