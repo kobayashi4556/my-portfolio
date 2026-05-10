@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Guide | 薗田信広</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   ベーススタイル
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #f8f9fa;
+  color: #1c2b24;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+/* 説明ボックス */
+.info-box {
+  background: #fff;
+  border-left: 4px solid #4CAF82;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  font-size: 13px;
+  color: #4a5568;
+  line-height: 1.7;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* 凡例 */
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  align-items: center;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.badge-nob    { background: #E1F5EE; color: #0F6E56; }
+.badge-client { background: #EEEDFE; color: #534AB7; }
+.badge-both   { background: #FFF3CD; color: #856404; }
+.legend-text  { font-size: 12px; color: #888; }
+
+/* フェーズ */
+.phase { margin-bottom: 36px; }
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.phase-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+.phase-A .phase-tag { background: #E1F5EE; color: #0F6E56; }
+.phase-B .phase-tag { background: #E6F1FB; color: #185FA5; }
+.phase-C .phase-tag { background: #FFF3CD; color: #856404; }
+.phase-D .phase-tag { background: #F3E8FF; color: #6B21A8; }
+
+.phase-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a2e23;
+}
+
+/* テーブル */
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+}
+.task-table thead tr { background: #f1f5f2; }
+.task-table thead th {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7c74;
+  padding: 8px 12px;
+  text-align: left;
+  letter-spacing: 0.05em;
+}
+.task-table thead th:nth-child(1) { width: 40px; }
+.task-table thead th:nth-child(3) { width: 100px; }
+.task-table thead th:nth-child(4) { width: 90px; text-align: right; }
+
+.task-table tbody tr {
+  border-top: 1px solid #eef2ef;
+  transition: background 0.15s;
+}
+.task-table tbody tr:hover { background: #f8fdf9; }
+.task-table td { padding: 12px; vertical-align: top; }
+
+.task-id { font-size: 12px; color: #aab5ae; font-weight: 700; padding-top: 2px; }
+.task-title { font-size: 14px; font-weight: 700; color: #1a2e23; margin-bottom: 3px; }
+.task-desc { font-size: 12px; color: #6b7c74; line-height: 1.6; }
+.task-deadline { font-size: 12px; color: #888; text-align: right; white-space: nowrap; padding-top: 2px; }
+
+/* スプレッドシートボタン */
+.sheet-btn-wrap { text-align: center; margin: 36px 0 0; }
+.sheet-btn {
+  display: inline-block;
+  background: #1a472a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 3px 12px rgba(26,71,42,0.25);
+}
+.sheet-btn:hover { background: #155c35; transform: translateY(-1px); }
+.sheet-note { margin-top: 10px; font-size: 12px; color: #999; }
+
+/* フッター */
+.footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8e4;
+  text-align: center;
+  font-size: 12px;
+  color: #aab5ae;
+}
+
+/* レスポンシブ */
+@media (max-width: 540px) {
+  .task-table thead th:nth-child(4),
+  .task-table td:nth-child(4) { display: none; }
+  .phase-title { font-size: 14px; }
+  .sheet-btn { padding: 12px 28px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- 説明ボックス -->
+  <div class="info-box">
+    このプランは「薗田 → <span class="js-client">娘さん</span>」への指示フロー。<span class="js-client">娘さん</span>に収集してもらう情報が揃ったら、次のフェーズへ進む形式です。
+  </div>
+
+  <!-- 凡例 -->
+  <div class="legend">
+    <span class="badge badge-nob">ノブさん</span><span class="legend-text">ノブさんが担当</span>
+    <span class="badge badge-client js-client-badge">娘さん</span><span class="legend-text">クライアントが担当</span>
+    <span class="badge badge-both">ふたり</span><span class="legend-text">一緒に作業</span>
+  </div>
+
+  <!-- フェーズA -->
+  <div class="phase phase-A">
+    <div class="phase-header">
+      <span class="phase-tag">フェーズ A</span>
+      <span class="phase-title">情報収集依頼（今週中）</span>
+    </div>
+    <table class="task-table">
+      <thead><tr><th></th><th>タスク</th><th>担当</th><th>期限目安</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="task-id">A1</td>
+          <td>
+            <div class="task-title">ヒアリングシートを送る</div>
+            <div class="task-desc">ノブさんがスプレッドシートのURLをクライアントに送る</div>
+          </td>
+          <td><span class="badge badge-nob">ノブさん</span></td>
+          <td class="task-deadline">5/12（月）</td>
+        </tr>
+        <tr>
+          <td class="task-id">A2</td>
+          <td>
+            <div class="task-title">スプレッドシートに回答してもらう</div>
+            <div class="task-desc">名前・職種・自己PR・スキル・実績・連絡先 など<br>写真（顔写真 or アイコン）もあれば準備</div>
+          </td>
+          <td><span class="badge badge-client js-client-badge">娘さん</span></td>
+          <td class="task-deadline">5/14（水）</td>
+        </tr>
+        <tr>
+          <td class="task-id">A3</td>
+          <td>
+            <div class="task-title">GitHubアカウントを作ってもらう</div>
+            <div class="task-desc">まだ持っていない場合のみ。手順書PDFを参考に作成</div>
+          </td>
+          <td><span class="badge badge-client js-client-badge">娘さん</span></td>
+          <td class="task-deadline">5/14（水）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- フェーズB -->
+  <div class="phase phase-B">
+    <div class="phase-header">
+      <span class="phase-tag">フェーズ B</span>
+      <span class="phase-title">情報整理 ＆ HTML制作（ノブさん）</span>
+    </div>
+    <table class="task-table">
+      <thead><tr><th></th><th>タスク</th><th>担当</th><th>期限目安</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="task-id">B1</td>
+          <td>
+            <div class="task-title">収集情報をもとにHTMLを作成</div>
+            <div class="task-desc">既存ポートフォリオのCSSを流用・Claudeで制作</div>
+          </td>
+          <td><span class="badge badge-nob">ノブさん</span></td>
+          <td class="task-deadline">5/15（木）</td>
+        </tr>
+        <tr>
+          <td class="task-id">B2</td>
+          <td>
+            <div class="task-title">ローカルで動作確認・クライアントへ確認依頼</div>
+            <div class="task-desc">ブラウザ・スマホ表示を確認し修正点をもらう</div>
+          </td>
+          <td><span class="badge badge-nob">ノブさん</span></td>
+          <td class="task-deadline">5/15（木）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- フェーズC -->
+  <div class="phase phase-C">
+    <div class="phase-header">
+      <span class="phase-tag">フェーズ C</span>
+      <span class="phase-title">GitHubコラボレーター招待 ＆ 公開（ふたりで）</span>
+    </div>
+    <table class="task-table">
+      <thead><tr><th></th><th>タスク</th><th>担当</th><th>期限目安</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="task-id">C1</td>
+          <td>
+            <div class="task-title">クライアントをコラボレーターに招待</div>
+            <div class="task-desc">招待メールをクライアントが承認</div>
+          </td>
+          <td><span class="badge badge-both">ふたり</span></td>
+          <td class="task-deadline">5/16（金）</td>
+        </tr>
+        <tr>
+          <td class="task-id">C2</td>
+          <td>
+            <div class="task-title">ファイルをプッシュ・GitHub Pages公開設定</div>
+            <div class="task-desc">Settings → Pages → Branch: main で公開</div>
+          </td>
+          <td><span class="badge badge-nob">ノブさん</span></td>
+          <td class="task-deadline">5/16（金）</td>
+        </tr>
+        <tr>
+          <td class="task-id">C3</td>
+          <td>
+            <div class="task-title">公開URLをクライアントに渡す</div>
+            <div class="task-desc">スマホで開いて動作確認してもらう</div>
+          </td>
+          <td><span class="badge badge-both">ふたり</span></td>
+          <td class="task-deadline">5/17（土）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- フェーズD -->
+  <div class="phase phase-D">
+    <div class="phase-header">
+      <span class="phase-tag">フェーズ D</span>
+      <span class="phase-title">ノブさんの実績として記録</span>
+    </div>
+    <table class="task-table">
+      <thead><tr><th></th><th>タスク</th><th>担当</th><th>期限目安</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="task-id">D1</td>
+          <td>
+            <div class="task-title">ポートフォリオの「制作実績」に追加</div>
+            <div class="task-desc">before/after スクショ・制作期間・使用技術を記載<br>Coconala・CrowdWorks向け実績ページへ掲載</div>
+          </td>
+          <td><span class="badge badge-nob">ノブさん</span></td>
+          <td class="task-deadline">5/18（日）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- スプレッドシートボタン -->
+  <div class="sheet-btn-wrap">
+    <a href="#" id="js-sheet-link" class="sheet-btn">📋 ヒアリングシートを開く</a>
+    <div class="sheet-note">回答欄に入力して保存するだけでOKです</div>
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">
+    薗田信広 | Web制作・介護ICT支援<br>
+    ご不明な点はLINEでお気軽にどうぞ
+  </div>
+
+</div>
+
+<script>
+  /* =============================================
+     ★ クライアントごとにここだけ変更する ★
+     ============================================= */
+  const CLIENT_NAME = "娘さん";   // ← クライアント名
+  const SHEET_URL   = "#";        // ← スプレッドシートURL
+
+  /* 以下は変更不要 */
+  document.querySelectorAll('.js-client').forEach(el => el.textContent = CLIENT_NAME);
+  document.querySelectorAll('.js-client-badge').forEach(el => el.textContent = CLIENT_NAME);
+  document.getElementById('js-sheet-link').href = SHEET_URL;
+</script>
+</body>
+</html>
