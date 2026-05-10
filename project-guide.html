@@ -54,7 +54,7 @@ body {
   padding: 4px 12px;
   border-radius: 20px;
 }
-.badge-nob     { background: #E1F5EE; color: #0F6E56; }
+.badge-nob    { background: #E1F5EE; color: #0F6E56; }
 .badge-client { background: #EEEDFE; color: #534AB7; }
 .badge-both   { background: #FFF3CD; color: #856404; }
 .legend-text  { font-size: 12px; color: #888; }
@@ -115,9 +115,9 @@ body {
 .task-table tbody tr:hover { background: #f8fdf9; }
 .task-table td { padding: 12px; vertical-align: top; }
 
-.task-id { font-size: 12px; color: #aab5ae; font-weight: 700; padding-top: 2px; }
+.task-id    { font-size: 12px; color: #aab5ae; font-weight: 700; padding-top: 2px; }
 .task-title { font-size: 14px; font-weight: 700; color: #1a2e23; margin-bottom: 3px; }
-.task-desc { font-size: 12px; color: #6b7c74; line-height: 1.6; }
+.task-desc  { font-size: 12px; color: #6b7c74; line-height: 1.6; }
 .task-deadline { font-size: 12px; color: #888; text-align: right; white-space: nowrap; padding-top: 2px; }
 
 /* スプレッドシートボタン */
@@ -188,7 +188,7 @@ body {
             <div class="task-desc">ヒアリングシートを開くから確認してください。スプレッドシートが開きます</div>
           </td>
           <td><span class="badge badge-nob">sonosann</span></td>
-          <td class="task-deadline">5/12（月）</td>
+          <td class="task-deadline js-date" data-offset="0"></td>
         </tr>
         <tr>
           <td class="task-id">A2</td>
@@ -197,7 +197,7 @@ body {
             <div class="task-desc">名前・職種・自己PR・スキル・実績・連絡先 など<br>写真（顔写真 or アイコン）もあれば準備</div>
           </td>
           <td><span class="badge badge-client js-client-badge">るナース</span></td>
-          <td class="task-deadline">5/14（水）</td>
+          <td class="task-deadline js-date" data-offset="2"></td>
         </tr>
         <tr>
           <td class="task-id">A3</td>
@@ -206,7 +206,7 @@ body {
             <div class="task-desc">まだ持っていない場合のみ。手順書PDFを参考に作成</div>
           </td>
           <td><span class="badge badge-client js-client-badge">るナース</span></td>
-          <td class="task-deadline">5/14（水）</td>
+          <td class="task-deadline js-date" data-offset="2"></td>
         </tr>
       </tbody>
     </table>
@@ -228,7 +228,7 @@ body {
             <div class="task-desc">既存ポートフォリオのCSSを流用・Claudeで制作</div>
           </td>
           <td><span class="badge badge-nob">sonosann</span></td>
-          <td class="task-deadline">5/15（木）</td>
+          <td class="task-deadline js-date" data-offset="3"></td>
         </tr>
         <tr>
           <td class="task-id">B2</td>
@@ -237,7 +237,7 @@ body {
             <div class="task-desc">ブラウザ・スマホ表示を確認し修正点をもらう</div>
           </td>
           <td><span class="badge badge-nob">sonosann</span></td>
-          <td class="task-deadline">5/15（木）</td>
+          <td class="task-deadline js-date" data-offset="3"></td>
         </tr>
       </tbody>
     </table>
@@ -259,7 +259,7 @@ body {
             <div class="task-desc">招待メールをクライアントが承認</div>
           </td>
           <td><span class="badge badge-both">ふたり</span></td>
-          <td class="task-deadline">5/16（金）</td>
+          <td class="task-deadline js-date" data-offset="4"></td>
         </tr>
         <tr>
           <td class="task-id">C2</td>
@@ -268,7 +268,7 @@ body {
             <div class="task-desc">Settings → Pages → Branch: main で公開</div>
           </td>
           <td><span class="badge badge-nob">sonosann</span></td>
-          <td class="task-deadline">5/16（金）</td>
+          <td class="task-deadline js-date" data-offset="4"></td>
         </tr>
         <tr>
           <td class="task-id">C3</td>
@@ -277,7 +277,7 @@ body {
             <div class="task-desc">スマホで開いて動作確認してもらう</div>
           </td>
           <td><span class="badge badge-both">ふたり</span></td>
-          <td class="task-deadline">5/17（土）</td>
+          <td class="task-deadline js-date" data-offset="5"></td>
         </tr>
       </tbody>
     </table>
@@ -299,15 +299,40 @@ body {
 
 <script>
   /* =============================================
-      ★ クライアントごとにここだけ変更する ★
-      ============================================= */
+     ★ クライアントごとにここだけ変更する ★
+     ============================================= */
   const CLIENT_NAME = "るナース";   // ← クライアント名
-  const SHEET_URL   = "https://docs.google.com/spreadsheets/d/1PXmSZxp_BM-3yIdGgsDir3U4jT1nw2vcYMrAe1DyKqc/edit?usp=sharing";         // ← スプレッドシートURL
+  const SHEET_URL   = "https://docs.google.com/spreadsheets/d/1PXmSZxp_BM-3yIdGgsDir3U4jT1nw2vcYMrAe1DyKqc/edit?usp=sharing";
 
-  /* 以下は変更不要 */
+  // ↓ フェーズAの最初のタスク（A1）の期限日を "YYYY-MM-DD" 形式で入力
+  // ここを変えるだけで全タスクの日付・曜日が自動で計算されます
+  const START_DATE  = "2026-05-12";
+
+  /* =============================================
+     以下は変更不要
+     ============================================= */
+
+  // クライアント名の差し込み
   document.querySelectorAll('.js-client').forEach(el => el.textContent = CLIENT_NAME);
   document.querySelectorAll('.js-client-badge').forEach(el => el.textContent = CLIENT_NAME);
   document.getElementById('js-sheet-link').href = SHEET_URL;
+
+  // 日付・曜日の自動計算
+  const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'];
+
+  function formatDate(baseDate, offsetDays) {
+    const d = new Date(baseDate);
+    d.setDate(d.getDate() + offsetDays);
+    const m   = d.getMonth() + 1;
+    const day = d.getDate();
+    const dow = WEEKDAYS[d.getDay()];
+    return `${m}/${day}（${dow}）`;
+  }
+
+  document.querySelectorAll('.js-date').forEach(el => {
+    const offset = parseInt(el.getAttribute('data-offset'), 10);
+    el.textContent = formatDate(START_DATE, offset);
+  });
 </script>
 </body>
 </html>
