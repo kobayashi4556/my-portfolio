@@ -476,22 +476,112 @@
       margin: 0 auto 48px;
     }
 
+    /* ─── HAMBURGER BUTTON ─── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 200;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE MENU OVERLAY ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0; z-index: 150;
+      background: var(--cream);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+      letter-spacing: 0.1em;
+      transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--rose); }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
-      .nav-links { gap: 20px; }
-      .hero { grid-template-columns: 1fr; padding-top: 80px; }
-      .hero-text { padding: 60px 24px 40px; }
-      .hero-image { display: none; }
-      section { padding: 70px 24px; }
-      #about { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { gap: 20px; font-size: 0.75rem; }
+
+      /* ヒーロー：縦1列 + 画像を下に配置 */
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        padding-top: 80px;
+      }
+      .hero-text { padding: 48px 28px 32px; }
+      .hero-image {
+        display: flex;
+        padding: 0 28px 56px;
+        justify-content: center;
+      }
+      .hero-image-frame {
+        width: 100%;
+        max-width: 360px;
+        height: 300px;
+      }
+      .hero-badge {
+        bottom: -12px; right: -8px;
+        padding: 12px 16px;
+      }
+      .badge-num { font-size: 1.5rem; }
+
+      section { padding: 70px 28px; }
+      #about { grid-template-columns: 1fr; gap: 48px; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .achievements { grid-template-columns: 1fr 1fr; }
     }
+
     @media (max-width: 600px) {
       .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-text { padding: 40px 20px 28px; }
+      .hero-name { font-size: 3rem; }
+      .hero-catch { font-size: 1rem; }
+
+      .hero-image {
+        padding: 0 20px 48px;
+      }
+      .hero-image-frame {
+        max-width: 100%;
+        height: 260px;
+      }
+
+      section { padding: 60px 20px; }
+      .section-title { font-size: 1.8rem; margin-bottom: 36px; }
+
       .skills-grid { grid-template-columns: 1fr; }
-      .achievements { grid-template-columns: 1fr; }
+      .achievements { grid-template-columns: 1fr 1fr; }
+
+      .sns-card { min-width: 140px; padding: 28px 24px; }
+
+      #message { padding: 70px 24px; }
+      .message-quote { font-size: 1rem; }
+
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+      .btn-primary, .btn-outline { text-align: center; width: 100%; max-width: 260px; }
     }
   </style>
 </head>
@@ -506,7 +596,18 @@
     <li><a href="#sns">SNS</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- モバイルメニュー -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"   onclick="closeMenu()">About</a>
+  <a href="#skills"  onclick="closeMenu()">Skills</a>
+  <a href="#sns"     onclick="closeMenu()">SNS</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
 
 <!-- ─── HERO ─── -->
 <section class="hero" id="top">
@@ -678,6 +779,18 @@
 </footer>
 
 <script>
+  // ハンバーガーメニュー
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
   // スクロールリビール
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver(entries => {
