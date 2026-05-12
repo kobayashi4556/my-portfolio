@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Collaborator設定・解除 手順書</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #f7f4f0;
+    color: #333;
+    padding: 24px 16px 60px;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  h1 { font-size: 20px; font-weight: 700; color: #222; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 28px; }
+
+  .overview {
+    background: #fff8f0;
+    border-left: 4px solid #e8956d;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 28px;
+    font-size: 14px;
+  }
+  .overview strong { color: #e8956d; }
+
+  /* フロー図 */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 32px;
+  }
+  .flow-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    font-size: 14px;
+  }
+  .flow-num {
+    background: #e8956d;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .flow-arrow {
+    text-align: center;
+    color: #e8956d;
+    font-size: 18px;
+    padding: 2px 0;
+  }
+  .flow-label { font-size: 11px; color: #888; margin-left: auto; }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background: #2d2d2d;
+    padding: 10px 16px;
+    border-radius: 8px 8px 0 0;
+    margin-top: 32px;
+  }
+
+  .step {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 0 0 10px 10px;
+  }
+  .step + .step {
+    border-radius: 10px;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    background: #3a3a3a;
+    color: #fff;
+  }
+  .step-num {
+    background: #e8956d;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title { font-weight: 700; font-size: 14px; }
+  .step-who {
+    margin-left: auto;
+    background: #e8956d;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .step-who.client { background: #5a9a5a; }
+
+  .step-body { padding: 14px 18px; }
+  .step-body p { margin-bottom: 10px; color: #444; font-size: 14px; }
+
+  ul.arrow-list { list-style: none; padding: 0; margin: 8px 0; }
+  ul.arrow-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #444;
+  }
+  ul.arrow-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #e8956d;
+    font-size: 11px;
+    top: 7px;
+  }
+
+  .tip {
+    background: #e8f4e8;
+    border-left: 3px solid #5a9a5a;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #3a6a3a;
+    margin-top: 10px;
+  }
+  .warn {
+    background: #fff3e0;
+    border-left: 3px solid #e8956d;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #7a4a1a;
+    margin-top: 10px;
+  }
+
+  .screenshot {
+    margin: 12px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .screenshot img { width: 100%; display: block; }
+  .screenshot-label {
+    background: #f0f0f0;
+    font-size: 12px;
+    color: #666;
+    padding: 5px 12px;
+    border-top: 1px solid #ddd;
+  }
+
+  .screenshots-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .finish {
+    text-align: center;
+    background: #2d2d2d;
+    color: #fff;
+    border-radius: 10px;
+    padding: 28px 20px;
+    margin-top: 32px;
+  }
+  .finish h2 { font-size: 18px; margin-bottom: 8px; }
+  .finish p { font-size: 13px; color: #aaa; line-height: 1.8; }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+
+<h1>🤝 GitHub Collaborator設定・解除 手順書</h1>
+<p class="subtitle">クライアントのリポジトリにsonosannを招待・作業後に解除する</p>
+
+<div class="overview">
+  <strong>目的：</strong>クライアントがsonosannをCollaborator（協力者）として招待することで、sonosannがVSCodeからクライアントのリポジトリに直接プッシュできるようになる。作業完了後は必ず解除する。
+</div>
+
+<!-- 全体フロー -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#e8956d"></div>sonosann操作</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#5a9a5a"></div>クライアント操作</div>
+</div>
+
+<div class="flow">
+  <div class="flow-item">
+    <div class="flow-num">1</div>
+    <div>クライアントがsonosannを招待する</div>
+    <div class="flow-label" style="color:#5a9a5a">クライアント</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-item">
+    <div class="flow-num">2</div>
+    <div>sonosannが招待メールを確認・Accept</div>
+    <div class="flow-label" style="color:#e8956d">sonosann</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-item">
+    <div class="flow-num">3</div>
+    <div>sonosannが作業（VSCodeからプッシュ）</div>
+    <div class="flow-label" style="color:#e8956d">sonosann</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-item">
+    <div class="flow-num">4</div>
+    <div>納品・確認完了</div>
+    <div class="flow-label">両者</div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-item">
+    <div class="flow-num">5</div>
+    <div>クライアントがCollaboratorを解除</div>
+    <div class="flow-label" style="color:#5a9a5a">クライアント</div>
+  </div>
+</div>
+
+<!-- A. クライアント側操作 -->
+<div class="section-title">A. クライアント側の操作（招待）</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">1</div>
+    <div class="step-title">Settings → Collaborators を開く</div>
+    <div class="step-who client">クライアント</div>
+  </div>
+  <div class="step-body">
+    <ul class="arrow-list">
+      <li>リポジトリの上部タブ <strong>Settings</strong> をクリック</li>
+      <li>左メニュー <strong>Collaborators</strong> をクリック</li>
+      <li><strong>人を追加する（Add people）</strong> ボタンを押す</li>
+    </ul>
+    <div class="screenshot">
+      <img src="images/step1-add-people-btn.png" alt="Add people画面">
+      <div class="screenshot-label">▲ 「人を追加する」ボタンが表示された画面</div>
+    </div>
+    <div class="warn">⚠️ ファイルが入っていない空のリポジトリではボタンがアクティブにならない。必ずファイルアップロード後に行うこと。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">2</div>
+    <div class="step-title">sonosannを検索して招待する</div>
+    <div class="step-who client">クライアント</div>
+  </div>
+  <div class="step-body">
+    <ul class="arrow-list">
+      <li>検索窓に <code>kobayashi4556</code> と入力</li>
+      <li>候補に <strong>satsuki / kobayashi4556</strong> が表示される</li>
+      <li>候補をクリックして選択状態にする</li>
+      <li><strong>リポジトリに追加</strong> ボタンを押す</li>
+    </ul>
+    <div class="screenshot">
+      <img src="images/step2-search-user.png" alt="ユーザー検索画面">
+      <div class="screenshot-label">▲ kobayashi4556で検索すると候補が表示される</div>
+    </div>
+    <div class="tip">✅ 候補をクリックしてからボタンがアクティブになります。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">3</div>
+    <div class="step-title">招待完了を確認する</div>
+    <div class="step-who client">クライアント</div>
+  </div>
+  <div class="step-body">
+    <ul class="arrow-list">
+      <li>上部バナーに <strong>「kobayashi4556 has been added as a collaborator」</strong> と表示される</li>
+      <li>Collaborators画面に <strong>「招待待ち」</strong> と表示される</li>
+    </ul>
+    <div class="screenshots-row">
+      <div class="screenshot">
+        <img src="images/step5-added.png" alt="招待完了バナー">
+        <div class="screenshot-label">▲ 招待完了のバナー表示</div>
+      </div>
+      <div class="screenshot">
+        <img src="images/step4-awaiting.png" alt="招待待ち状態">
+        <div class="screenshot-label">▲ sonosannの返信待ち状態</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- B. sonosann側操作 -->
+<div class="section-title">B. sonosann側の操作（Accept）</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">4</div>
+    <div class="step-title">招待メールを確認してAcceptする</div>
+    <div class="step-who">sonosann</div>
+  </div>
+  <div class="step-body">
+    <ul class="arrow-list">
+      <li>GitHubから招待メールが届く</li>
+      <li>メール内の <strong>Accept invitation</strong> をクリック</li>
+      <li>ブラウザが開いてリポジトリにアクセスできる状態になる</li>
+    </ul>
+    <div class="screenshot">
+      <img src="images/step3-accept-done.png" alt="Accept完了画面">
+      <div class="screenshot-label">▲「You now have push access to the repository」と表示される</div>
+    </div>
+    <div class="tip">✅ この状態でVSCodeからクライアントのリポジトリにプッシュできます。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">5</div>
+    <div class="step-title">クライアント側でも協力者になったか確認する</div>
+    <div class="step-who client">クライアント</div>
+  </div>
+  <div class="step-body">
+    <ul class="arrow-list">
+      <li>Settings → Collaborators を開く</li>
+      <li>ページを再読み込み（F5）する</li>
+      <li><strong>「招待待ち」→「協力者」</strong> に変わっていればOK</li>
+    </ul>
+    <div class="screenshot">
+      <img src="images/step6-collaborator.png" alt="協力者になった状態">
+      <div class="screenshot-label">▲「kobayashi4556・協力者」と表示されればOK</div>
+    </div>
+  </div>
+</div>
+
+<!-- C. 作業完了後の解除 -->
+<div class="section-title">C. 作業完了後の解除</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">6</div>
+    <div class="step-title">Collaboratorを解除する</div>
+    <div class="step-who client">クライアント</div>
+  </div>
+  <div class="step-body">
+    <ul class="arrow-list">
+      <li>Settings → Collaborators を開く</li>
+      <li>kobayashi4556の右端の <strong>ゴミ箱アイコン</strong> をクリック</li>
+      <li>確認ダイアログの <strong>「このリポジトリからkobayashi4556を削除する」</strong> をクリック</li>
+    </ul>
+    <div class="screenshots-row">
+      <div class="screenshot">
+        <img src="images/step7-remove-confirm.png" alt="削除確認ダイアログ">
+        <div class="screenshot-label">▲ 削除確認ダイアログ</div>
+      </div>
+      <div class="screenshot">
+        <img src="images/step8-removed.png" alt="削除完了">
+        <div class="screenshot-label">▲「まだ共同作業者を招待していません」に戻れば完了</div>
+      </div>
+    </div>
+    <div class="tip">✅ 解除後、sonosannはこのリポジトリにプッシュできなくなります。</div>
+  </div>
+</div>
+
+<div class="finish">
+  <h2>🎉 Collaborator設定・解除 完了！</h2>
+  <p>招待 → Accept → 作業 → 解除<br>この流れを毎回の案件で繰り返します。</p>
+</div>
+
+</body>
+</html>
