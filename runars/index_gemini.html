@@ -61,16 +61,27 @@
             <a href="#" class="text-xl font-bold text-slate-800 tracking-wider">
                 るナース<span class="text-primary">.</span>
             </a>
+            <!-- Desktop Nav -->
             <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
                 <a href="#about" class="hover:text-primary transition">About</a>
                 <a href="#skills" class="hover:text-primary transition">Skills</a>
                 <a href="#achievements" class="hover:text-primary transition">Achievements</a>
                 <a href="#contact" class="hover:text-primary transition">Contact</a>
             </nav>
-            <!-- Mobile Menu Button (Simple) -->
-            <button class="md:hidden text-slate-600 focus:outline-none">
-                <i class="fas fa-bars text-xl"></i>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-600 focus:outline-none transition-transform">
+                <i id="mobile-menu-icon" class="fas fa-bars text-2xl"></i>
             </button>
+        </div>
+
+        <!-- Mobile Nav (Hidden by default) -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-slate-100 flex-col md:hidden">
+            <nav class="flex flex-col px-6 py-4 text-slate-700 font-medium">
+                <a href="#about" class="mobile-link py-3 border-b border-slate-100 hover:text-primary transition">About</a>
+                <a href="#skills" class="mobile-link py-3 border-b border-slate-100 hover:text-primary transition">Skills</a>
+                <a href="#achievements" class="mobile-link py-3 border-b border-slate-100 hover:text-primary transition">Achievements</a>
+                <a href="#contact" class="mobile-link py-3 hover:text-primary transition">Contact</a>
+            </nav>
         </div>
     </header>
 
@@ -260,10 +271,41 @@
         </p>
     </footer>
 
-    <!-- スクロールアニメーション用スクリプト -->
+    <!-- スクロールアニメーション・メニュー用スクリプト -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Intersection Observerの設定
+            // --- ハンバーガーメニューの制御 ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIcon = document.getElementById('mobile-menu-icon');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            // メニュー開閉ボタンのクリックイベント
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+                
+                // アイコンを「三(bars)」から「×(times)」に切り替え
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileIcon.classList.remove('fa-times');
+                    mobileIcon.classList.add('fa-bars');
+                } else {
+                    mobileIcon.classList.remove('fa-bars');
+                    mobileIcon.classList.add('fa-times');
+                }
+            });
+
+            // スマホメニュー内のリンクをクリックしたらメニューを閉じる
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    mobileIcon.classList.remove('fa-times');
+                    mobileIcon.classList.add('fa-bars');
+                });
+            });
+
+            // --- スクロールアニメーションの制御 ---
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -274,13 +316,12 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        // 一度表示されたら監視を解除（毎回アニメーションさせたい場合は削除）
+                        // 一度表示されたら監視を解除
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            // アニメーション対象の要素を取得して監視を開始
             const elements = document.querySelectorAll('.fade-in-up');
             elements.forEach(el => observer.observe(el));
         });
