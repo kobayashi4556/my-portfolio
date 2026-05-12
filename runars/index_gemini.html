@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>るナース | 現役看護師 × AI・note収益化</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#3b82f6', // Blue-500
+                        secondary: '#10b981', // Emerald-500
+                        accent: '#f43f5e', // Rose-500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* スクロール時のフェードインアニメーション用クラス */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 背景のグラデーション装飾 */
+        .bg-blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden relative">
+
+    <!-- 背景装飾 -->
+    <div class="bg-blob bg-blue-300 w-96 h-96 rounded-full top-[-10%] left-[-10%]"></div>
+    <div class="bg-blob bg-emerald-200 w-80 h-80 rounded-full top-[20%] right-[-10%]"></div>
+
+    <!-- Header / Navigation -->
+    <header class="fixed w-full top-0 bg-white/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-slate-800 tracking-wider">
+                るナース<span class="text-primary">.</span>
+            </a>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-primary transition">About</a>
+                <a href="#skills" class="hover:text-primary transition">Skills</a>
+                <a href="#achievements" class="hover:text-primary transition">Achievements</a>
+                <a href="#contact" class="hover:text-primary transition">Contact</a>
+            </nav>
+            <!-- Mobile Menu Button (Simple) -->
+            <button class="md:hidden text-slate-600 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 min-h-[80vh] flex items-center justify-center relative">
+        <div class="max-w-4xl mx-auto text-center fade-in-up">
+            <!-- プロフィール画像 -->
+            <div class="relative w-32 h-32 mx-auto mb-6">
+                <img src="./image/hero.jpg" 
+                     alt="るナースのプロフィール画像" 
+                     class="rounded-full w-full h-full object-cover shadow-lg border-4 border-white">
+                <div class="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-md text-secondary">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+            </div>
+
+            <h2 class="text-lg md:text-xl text-primary font-medium mb-2 tracking-widest">現役看護師</h2>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-800">
+                るナース
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-600 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
+                AI×note、開始5日で初収益。<br class="hidden md:block">
+                現役看護師が教えるnote収益化。
+            </p>
+            
+            <div class="flex justify-center gap-4">
+                <a href="#contact" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition shadow-md shadow-blue-200">
+                    お問い合わせ
+                </a>
+                <a href="#about" class="bg-white hover:bg-slate-50 text-slate-700 px-8 py-3 rounded-full font-medium transition shadow-sm border border-slate-200">
+                    詳しく見る
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-white">
+        <div class="max-w-4xl mx-auto fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 inline-block relative">
+                    About Me
+                    <span class="absolute bottom-1 left-0 w-full h-3 bg-blue-100 -z-10 transform -rotate-1"></span>
+                </h2>
+            </div>
+            
+            <div class="bg-slate-50 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 items-center">
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <div class="w-40 h-40 bg-blue-50 rounded-full flex items-center justify-center text-5xl text-primary">
+                        <i class="fas fa-user-nurse"></i>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">現役看護師として働きながら、<br>AIを活用した発信で価値を提供</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        看護師として10年間の経験を積みながら、新しい働き方や情報発信の可能性を探求しています。特にAIを活用した効率的なコンテンツ制作と、noteを通じた収益化を得意としており、自身の経験をもとに再現性の高いノウハウを発信しています。
+                    </p>
+                    <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-lg font-medium">
+                        <i class="fas fa-certificate"></i>
+                        <span>資格: 看護師歴10年</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Strengths Section -->
+    <section id="skills" class="py-20 px-6 relative">
+        <div class="max-w-4xl mx-auto fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 inline-block relative">
+                    Strengths
+                    <span class="absolute bottom-1 left-0 w-full h-3 bg-emerald-100 -z-10 transform rotate-1"></span>
+                </h2>
+                <p class="mt-4 text-slate-600">私の得意なこと・強み</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Skill 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-blue-100 text-primary rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">わかりやすく説明する</h4>
+                    <p class="text-slate-600 text-sm">医療現場で培った、専門的な内容を噛み砕いて伝えるスキルを活かし、複雑な概念も誰にでも伝わる言葉で解説します。</p>
+                </div>
+                <!-- Skill 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-emerald-100 text-secondary rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">言語化する</h4>
+                    <p class="text-slate-600 text-sm">漠然とした思考や感覚を明確な言葉にし、読者に刺さるコンテンツとして形にすることが得意です。</p>
+                </div>
+                <!-- Skill 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-rose-100 text-accent rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">継続力</h4>
+                    <p class="text-slate-600 text-sm">目標達成に向けてコツコツと積み重ねる力。看護師としてのキャリアはもちろん、副業・発信活動においてもブレずに継続します。</p>
+                </div>
+                <!-- Skill 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-2">行動力</h4>
+                    <p class="text-slate-600 text-sm">新しいツール（AIなど）や手法にいち早く挑戦し、実践から学びを得てスピーディに成果へと繋げます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20 px-6 bg-slate-800 text-white relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full filter blur-[100px] opacity-30"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary rounded-full filter blur-[100px] opacity-30"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10 fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold inline-block relative">
+                    Achievements
+                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-primary rounded"></span>
+                </h2>
+                <p class="mt-4 text-slate-300">これまでの経験・実績</p>
+            </div>
+
+            <div class="bg-slate-700/50 backdrop-blur-md p-8 md:p-10 rounded-2xl border border-slate-600">
+                <div class="flex items-start gap-6">
+                    <div class="hidden md:flex w-16 h-16 bg-gradient-to-br from-primary to-blue-400 rounded-2xl items-center justify-center text-2xl flex-shrink-0 shadow-lg">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">noteとAIを活用した最速の収益化</h3>
+                        <ul class="space-y-4 text-slate-200">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-secondary mt-1"></i>
+                                <span class="text-lg">note開始<strong>わずか5日</strong>で初収益を達成</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-secondary mt-1"></i>
+                                <span class="text-lg">アカウント運用開始4ヶ月で<strong>¥19,800の高単価記事</strong>の販売に成功</span>
+                            </li>
+                        </ul>
+                        <p class="mt-6 text-slate-400 text-sm">
+                            ※再現性のあるノウハウとして言語化し、自身のコンテンツとして展開中。現役看護師という本業の傍らでも結果を出せる手法を確立しています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Links Section -->
+    <section id="contact" class="py-20 px-6 bg-white">
+        <div class="max-w-3xl mx-auto text-center fade-in-up">
+            <h2 class="text-3xl font-bold text-slate-800 mb-8">Follow & Contact</h2>
+            <p class="text-slate-600 mb-10">
+                発信内容に興味を持っていただけましたら、ぜひSNSのフォローをお願いします。<br>
+                お仕事のご依頼やご相談はDM等からお気軽にどうぞ。
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- note Link -->
+                <a href="https://note.com/runa_ai_vlog/all?sort=latest" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-center gap-3 bg-white border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-slate-700 px-8 py-4 rounded-xl transition group">
+                    <span class="w-8 h-8 bg-emerald-500 text-white rounded flex items-center justify-center font-bold text-sm group-hover:scale-110 transition-transform">n</span>
+                    <span class="font-bold">noteを読む</span>
+                </a>
+                
+                <!-- Threads Link -->
+                <a href="https://www.threads.com/@runurse_aivlog" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-center gap-3 bg-white border-2 border-slate-200 hover:border-black hover:bg-slate-50 text-slate-700 px-8 py-4 rounded-xl transition group">
+                    <i class="fa-brands fa-threads text-2xl text-black group-hover:scale-110 transition-transform"></i>
+                    <span class="font-bold">Threadsを見る</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 py-8 text-center border-t border-slate-200">
+        <p class="text-slate-500 text-sm">
+            &copy; <script>document.write(new Date().getFullYear())</script> るナース. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- スクロールアニメーション用スクリプト -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observerの設定
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // 一度表示されたら監視を解除（毎回アニメーションさせたい場合は削除）
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // アニメーション対象の要素を取得して監視を開始
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
