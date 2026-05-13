@@ -226,8 +226,8 @@
 
     /* ─── SNS LINKS ─── */
     .sns-list {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
     .sns-link {
@@ -463,6 +463,7 @@
       .note-price { font-size: 0.82rem; }
 
       /* SNSリンク */
+      .sns-list { grid-template-columns: 1fr; }
       .sns-link { padding: 10px 12px; font-size: 0.84rem; }
       .sns-icon { width: 32px; height: 32px; font-size: 1rem; border-radius: 6px; }
       .sns-label-name { font-size: 0.84rem; }
@@ -590,7 +591,10 @@
     <!-- オプチャ紹介note -->
     <a href="https://note.com/runa_ai_vlog/n/n8622f3aa25c4"
        class="note-item fade" target="_blank" rel="noopener">
-      <div class="note-thumb">👥</div>
+      <div class="note-thumb">
+        <img src="https://assets.st-note.com/production/uploads/images/249935416/rectangle_large_type_2_5f2b5c725018058e2baeec423aa9aff4.png?width=1280" alt="オプチャ紹介note"
+             onerror="this.style.display='none'; this.parentNode.style.fontSize='2rem'; this.parentNode.innerText='👥';">
+      </div>
       <div class="note-info">
         <div class="note-tags">
           <span class="tag free">無料</span>
