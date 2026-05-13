@@ -37,17 +37,13 @@
     /* ─── COVER BANNER ─── */
     .cover {
       width: 100%;
-      height: 280px;
       position: relative;
-      overflow: hidden;
       background: linear-gradient(135deg, #f9c6c9 0%, #fddde6 40%, #fce4ec 70%, #e8f4f8 100%);
     }
     .cover-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center 30%;
+      width: 100%;
+      height: auto;
       display: block;
-      position: absolute; inset: 0;
     }
     /* カバー内の装飾テキスト */
     .cover-deco {
@@ -255,10 +251,15 @@
       font-size: 1.2rem;
       flex-shrink: 0;
     }
-    .sns-icon.note     { background: #41C9B4; }
-    .sns-icon.threads  { background: #000; color: #fff; font-size: 1rem; font-weight: 900; }
+    .sns-icon.note     { background: #fff; border: 1px solid var(--border); }
+    .sns-icon.threads  { background: #000; }
     .sns-icon.line     { background: #06C755; }
-    .sns-icon.openchat { background: #00B900; }
+    .sns-icon.openchat { background: #06C755; }
+    .sns-icon img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
 
     .sns-label { flex: 1; }
     .sns-label-name { font-weight: 700; font-size: 0.9rem; }
@@ -537,7 +538,7 @@
   </div>
 
   <!-- ─── noteギャラリー ─── -->
-  <h2 class="section-h fade">📓 noteギャラリー</h2>
+  <h2 class="section-h fade">📓 note一覧</h2>
   <div class="note-gallery">
 
     <!-- 自己紹介記事 -->
@@ -547,10 +548,6 @@
         <img src="https://assets.st-note.com/production/uploads/images/223199777/rectangle_large_type_2_85660211706dd3a6a1942921f76514f1.png?width=1280" alt="自己紹介note">
       </div>
       <div class="note-info">
-        <div class="note-tags">
-          <span class="tag intro">自己紹介</span>
-          <span class="tag free">無料</span>
-        </div>
         <div class="note-title">はじめまして、るナースです｜現役看護師がAI×noteを始めた理由</div>
         <div class="note-desc">看護師10年、AIと出会って変わった私のこと。noteを始めたきっかけをまとめました。</div>
       </div>
@@ -563,9 +560,6 @@
         <img src="https://assets.st-note.com/production/uploads/images/271509993/rectangle_large_type_2_946e59eca0033bdae707e135f9040a83.png?width=1280" alt="有料note①">
       </div>
       <div class="note-info">
-        <div class="note-tags">
-          <span class="tag paid">有料</span>
-        </div>
         <div class="note-title">有料noteタイトルをここに入力してください</div>
         <div class="note-desc">記事の説明文をここに入力してください。どんな内容が読めるか読者に伝わるように書きましょう。</div>
         <div class="note-price">¥〇〇〇</div>
@@ -579,9 +573,6 @@
         <img src="https://assets.st-note.com/production/uploads/images/275798982/rectangle_large_type_2_3b675db2689de85003b2b94e62a97c7e.png?width=1280" alt="有料note②">
       </div>
       <div class="note-info">
-        <div class="note-tags">
-          <span class="tag paid">有料</span>
-        </div>
         <div class="note-title">有料noteタイトルをここに入力してください</div>
         <div class="note-desc">記事の説明文をここに入力してください。どんな内容が読めるか読者に伝わるように書きましょう。</div>
         <div class="note-price">¥〇〇〇</div>
@@ -592,13 +583,9 @@
     <a href="https://note.com/runa_ai_vlog/n/n8622f3aa25c4"
        class="note-item fade" target="_blank" rel="noopener">
       <div class="note-thumb">
-        <img src="https://assets.st-note.com/production/uploads/images/249935416/rectangle_large_type_2_5f2b5c725018058e2baeec423aa9aff4.png?width=1280" alt="オプチャ紹介note"
-             onerror="this.style.display='none'; this.parentNode.style.fontSize='2rem'; this.parentNode.innerText='👥';">
+        <img src="https://assets.st-note.com/production/uploads/images/249935416/rectangle_large_type_2_5f2b5c725018058e2baeec423aa9aff4.png?width=1280" alt="オプチャ紹介note">
       </div>
       <div class="note-info">
-        <div class="note-tags">
-          <span class="tag free">無料</span>
-        </div>
         <div class="note-title">オープンチャットのご紹介</div>
         <div class="note-desc">るナースのコミュニティについてご紹介しています。ぜひ参加してください！</div>
       </div>
@@ -612,7 +599,7 @@
 
     <a href="https://note.com/runa_ai_vlog"
        class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon note">📓</div>
+      <div class="sns-icon note"><img src="image/sns_note.jpg" alt="note"></div>
       <div class="sns-label">
         <div class="sns-label-name">note</div>
         <div class="sns-label-sub">@runa_ai_vlog</div>
@@ -622,7 +609,7 @@
 
     <a href="https://www.threads.com/@runurse_aivlog"
        class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon threads">@</div>
+      <div class="sns-icon threads"><img src="image/sns_threads.jpg" alt="Threads"></div>
       <div class="sns-label">
         <div class="sns-label-name">Threads</div>
         <div class="sns-label-sub">@runurse_aivlog</div>
@@ -633,7 +620,7 @@
     <!-- 公式LINE -->
     <a href="https://lin.ee/Umcu8OY"
        class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon line">💬</div>
+      <div class="sns-icon line"><img src="image/sns_line.jpg" alt="LINE"></div>
       <div class="sns-label">
         <div class="sns-label-name">公式LINE</div>
         <div class="sns-label-sub">友だち追加はこちら</div>
@@ -644,7 +631,7 @@
     <!-- オープンチャット -->
     <a href="https://line.me/ti/g2/_BYZYgT4QPwpEmfghIO96BBBXn3DG6FRc8IxfA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
        class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon openchat">👥</div>
+      <div class="sns-icon openchat"><img src="image/sns_openchat.jpg" alt="オープンチャット"></div>
       <div class="sns-label">
         <div class="sns-label-name">オープンチャット</div>
         <div class="sns-label-sub">コミュニティに参加</div>
