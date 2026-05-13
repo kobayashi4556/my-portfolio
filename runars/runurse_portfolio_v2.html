@@ -353,67 +353,6 @@
       border-top: 1px solid var(--border);
     }
 
-    /* ─── NAV / HAMBURGER ─── */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 24px;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-      z-index: 300;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px; height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: transform .3s, opacity .3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: none;
-      position: fixed; inset: 0; z-index: 250;
-      background: var(--bg);
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 36px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      text-decoration: none;
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.08em;
-      transition: color .2s;
-    }
-    .mobile-menu a:hover { color: var(--accent); }
-
-    /* ナビ分の余白 */
-    body { padding-top: 52px; }
-
     /* ─── FADE IN ─── */
     .fade {
       opacity: 0;
@@ -494,25 +433,9 @@
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
-<nav class="nav">
-  <a href="#top" class="nav-logo">るナース 🏥</a>
-  <button class="hamburger" id="hamburger" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- モバイルメニュー -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#top"        onclick="closeMenu()">Top</a>
-  <a href="#note-gallery" onclick="closeMenu()">Note</a>
-  <a href="#sns"        onclick="closeMenu()">SNS</a>
-  <a href="#about"      onclick="closeMenu()">About</a>
-</div>
-
 <!-- ─── COVER ─── -->
 <div class="cover">
-  <img class="cover-img" src="image/hero.jpg" alt="るナース カバー画像"
+  <img class="cover-img" src="image/TOPバナー.png" alt="るナース カバー画像"
        onerror="this.style.display='none'">
 </div>
 
@@ -702,18 +625,6 @@
 </footer>
 
 <script>
-  // ハンバーガーメニュー
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-  function closeMenu() {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-  }
-
   // スクロールリビール
   const fades = document.querySelectorAll('.fade');
   const io = new IntersectionObserver(entries => {
