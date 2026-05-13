@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>るナースと申します</title>
+  <title>るナース</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -251,14 +251,16 @@
       font-size: 1.2rem;
       flex-shrink: 0;
     }
-    .sns-icon.note     { background: #fff; border: 1px solid var(--border); }
-    .sns-icon.threads  { background: #000; }
-    .sns-icon.line     { background: #06C755; }
-    .sns-icon.openchat { background: #06C755; }
+    .sns-icon.note     { background: #fff; border: 1px solid var(--border); overflow: hidden; }
+    .sns-icon.threads  { background: #000; overflow: hidden; }
+    .sns-icon.line     { background: #06C755; overflow: hidden; }
+    .sns-icon.openchat { background: #06C755; overflow: hidden; }
     .sns-icon img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 8px;
+      object-position: center;
+      display: block;
     }
 
     .sns-label { flex: 1; }
@@ -447,7 +449,7 @@
     <div class="profile-icon">
       <img src="image/hero.jpg" alt="るナース">
     </div>
-    <h1 class="profile-name">るナースと申します</h1>
+    <h1 class="profile-name">るナース</h1>
     <p class="profile-tagline">現役看護師 ／ noteクリエイター ／ AI×note収益化</p>
   </div>
 
@@ -471,8 +473,7 @@
         <img src="https://assets.st-note.com/production/uploads/images/223199777/rectangle_large_type_2_85660211706dd3a6a1942921f76514f1.png?width=1280" alt="自己紹介note">
       </div>
       <div class="note-info">
-        <div class="note-title">はじめまして、るナースです｜現役看護師がAI×noteを始めた理由</div>
-        <div class="note-desc">看護師10年、AIと出会って変わった私のこと。noteを始めたきっかけをまとめました。</div>
+        <div class="note-title">副業初心者が最初の1万円をつかむまで｜AI×noteで挑戦する看護師のリアル【自己紹介】</div>
       </div>
     </a>
 
@@ -483,9 +484,7 @@
         <img src="https://assets.st-note.com/production/uploads/images/271509993/rectangle_large_type_2_946e59eca0033bdae707e135f9040a83.png?width=1280" alt="有料note①">
       </div>
       <div class="note-info">
-        <div class="note-title">有料noteタイトルをここに入力してください</div>
-        <div class="note-desc">記事の説明文をここに入力してください。どんな内容が読めるか読者に伝わるように書きましょう。</div>
-        <div class="note-price">¥〇〇〇</div>
+        <div class="note-title">note初心者が4ヶ月で19,800円の記事を販売できた理由｜高単価記事が選ばれる文章の並べ方</div>
       </div>
     </a>
 
@@ -496,9 +495,7 @@
         <img src="https://assets.st-note.com/production/uploads/images/275798982/rectangle_large_type_2_3b675db2689de85003b2b94e62a97c7e.png?width=1280" alt="有料note②">
       </div>
       <div class="note-info">
-        <div class="note-title">有料noteタイトルをここに入力してください</div>
-        <div class="note-desc">記事の説明文をここに入力してください。どんな内容が読めるか読者に伝わるように書きましょう。</div>
-        <div class="note-price">¥〇〇〇</div>
+        <div class="note-title">看護師経験は有料noteになる。｜AIでしんどい経験を有料記事に変える方法</div>
       </div>
     </a>
 
@@ -509,8 +506,7 @@
         <img src="https://assets.st-note.com/production/uploads/images/249935416/rectangle_large_type_2_5f2b5c725018058e2baeec423aa9aff4.png?width=1280" alt="オプチャ紹介note">
       </div>
       <div class="note-info">
-        <div class="note-title">オープンチャットのご紹介</div>
-        <div class="note-desc">るナースのコミュニティについてご紹介しています。ぜひ参加してください！</div>
+        <div class="note-title">noteで副業一緒に頑張りましょー！初心者のための「避難所」を作りました</div>
       </div>
     </a>
 
