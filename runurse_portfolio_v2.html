@@ -1,739 +1,268 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>るナースと申します</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:       #ffffff;
-      --bg-sub:   #f7f7f5;
-      --border:   #e8e8e4;
-      --text:     #37352f;
-      --text-sub: #787774;
-      --text-lt:  #9b9a97;
-      --accent:   #eb5757;   /* noteっぽい赤 */
-      --accent2:  #0f7b6c;   /* LINEグリーン */
-      --accent3:  #000000;   /* Threads黒 */
-      --tag-bg:   #f1f1ef;
-      --tag-text: #37352f;
-      --link:     #2eaadc;
-      --max-w:    720px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── COVER BANNER ─── */
-    .cover {
-      width: 100%;
-      height: 280px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #f9c6c9 0%, #fddde6 40%, #fce4ec 70%, #e8f4f8 100%);
-    }
-    .cover-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center 30%;
-      display: block;
-      position: absolute; inset: 0;
-    }
-    /* カバー内の装飾テキスト */
-    .cover-deco {
-      position: absolute;
-      font-family: 'Noto Serif JP', serif;
-      font-weight: 700;
-      color: rgba(200, 100, 110, 0.12);
-      user-select: none;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .cover-deco.d1 { font-size: 7rem; bottom: -10px; left: 5%; letter-spacing: -0.02em; }
-    .cover-deco.d2 { font-size: 4rem; top: 20px; right: 8%; }
-
-    /* ─── MAIN CONTAINER ─── */
-    .page {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 40px 120px;
-    }
-
-    /* ─── PROFILE HEADER ─── */
-    .profile-header {
-      display: flex;
-      flex-direction: column;
-      padding-top: 24px;
-      margin-bottom: 32px;
-    }
-    .profile-icon {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f9c6c9, #fce4ec);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.6rem;
-      margin-top: -40px;
-      border: 3px solid var(--bg);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .profile-icon img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-    .profile-name {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-top: 16px;
-      line-height: 1.3;
-    }
-    .profile-tagline {
-      font-size: 0.88rem;
-      color: var(--text-sub);
-      margin-top: 6px;
-    }
-
-    /* ─── CALLOUT BOX ─── */
-    .callout {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      background: #fff5f5;
-      border: 1px solid #fdd;
-      border-radius: 6px;
-      padding: 16px 18px;
-      margin-bottom: 40px;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: var(--text);
-    }
-    .callout-emoji { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
-
-    /* ─── SECTION HEADING ─── */
-    h2.section-h {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin: 48px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--border);
-      letter-spacing: 0.04em;
-    }
-
-    /* ─── NOTE GALLERY ─── */
-    .note-gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 8px;
-    }
-
-    .note-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      text-decoration: none;
-      color: var(--text);
-      padding: 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      transition: background .18s, box-shadow .18s;
-    }
-    .note-item:hover {
-      background: var(--bg-sub);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-
-    .note-thumb {
-      width: 120px;
-      height: 72px;
-      border-radius: 5px;
-      object-fit: cover;
-      flex-shrink: 0;
-      background: linear-gradient(135deg, #fce4ec, #e8f4f8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      overflow: hidden;
-    }
-    .note-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .note-info { flex: 1; min-width: 0; }
-    .note-tags {
-      display: flex; gap: 6px; flex-wrap: wrap;
-      margin-bottom: 5px;
-    }
-    .tag {
-      font-size: 0.68rem;
-      padding: 2px 8px;
-      border-radius: 3px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      font-weight: 500;
-      letter-spacing: 0.04em;
-    }
-    .tag.free  { background: #e8f8f5; color: #0f7b6c; }
-    .tag.paid  { background: #fff3cd; color: #856404; }
-    .tag.intro { background: #e8f0fe; color: #1a73e8; }
-
-    .note-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      line-height: 1.55;
-      color: var(--text);
-      margin-bottom: 4px;
-      /* 2行で切る */
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .note-desc {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      line-height: 1.6;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .note-price {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-top: 6px;
-    }
-
-    /* ─── SNS LINKS ─── */
-    .sns-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .sns-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: background .18s, box-shadow .18s;
-    }
-    .sns-link:hover {
-      background: var(--bg-sub);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-    }
-    .sns-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-    .sns-icon.note     { background: #41C9B4; }
-    .sns-icon.threads  { background: #000; color: #fff; font-size: 1rem; font-weight: 900; }
-    .sns-icon.line     { background: #06C755; }
-    .sns-icon.openchat { background: #00B900; }
-
-    .sns-label { flex: 1; }
-    .sns-label-name { font-weight: 700; font-size: 0.9rem; }
-    .sns-label-sub  { font-size: 0.75rem; color: var(--text-sub); }
-    .sns-arrow { color: var(--text-lt); font-size: 0.9rem; }
-
-    /* ─── PROFILE SECTION ─── */
-    .profile-body {
-      font-size: 0.9rem;
-      color: var(--text);
-      line-height: 1.9;
-    }
-    .profile-body p { margin-bottom: 14px; }
-
-    /* ─── CATCHPHRASES ─── */
-    .catch-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .catch-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 0.88rem;
-      line-height: 1.6;
-    }
-    .catch-list li::before {
-      content: '✅';
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    /* ─── TARGET AUDIENCE ─── */
-    .target-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .target-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      padding: 10px 14px;
-      background: var(--bg-sub);
-      border-radius: 6px;
-    }
-    .target-list li::before {
-      content: '👩‍⚕️';
-      flex-shrink: 0;
-    }
-
-    /* ─── RESULTS / STATS ─── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-    .stat-card {
-      background: var(--bg-sub);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px 16px;
-      text-align: center;
-    }
-    .stat-num {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .stat-label {
-      font-size: 0.76rem;
-      color: var(--text-sub);
-      line-height: 1.4;
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 24px 40px 48px;
-      font-size: 0.75rem;
-      color: var(--text-lt);
-      border-top: 1px solid var(--border);
-    }
-
-    /* ─── NAV / HAMBURGER ─── */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 24px;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-      z-index: 300;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px; height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: transform .3s, opacity .3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: none;
-      position: fixed; inset: 0; z-index: 250;
-      background: var(--bg);
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 36px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      text-decoration: none;
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.08em;
-      transition: color .2s;
-    }
-    .mobile-menu a:hover { color: var(--accent); }
-
-    /* ナビ分の余白 */
-    body { padding-top: 52px; }
-
-    /* ─── FADE IN ─── */
-    .fade {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .fade.in { opacity: 1; transform: translateY(0); }
-
-    /* ─── RESPONSIVE: タブレット (641px〜900px) ─── */
-    @media (max-width: 900px) {
-      :root { --max-w: 100%; }
-      .page { padding: 0 32px 100px; }
-      .cover { height: 190px; }
-      .cover-deco.d1 { font-size: 5.5rem; }
-      .cover-deco.d2 { font-size: 3rem; }
-      .profile-name { font-size: 1.75rem; }
-      .note-thumb { width: 100px; height: 64px; font-size: 1.8rem; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    /* ─── RESPONSIVE: スマホ (〜640px) ─── */
-    @media (max-width: 640px) {
-      :root { --max-w: 100%; }
-      .page { padding: 0 16px 80px; }
-      .cover { height: 140px; }
-      .cover-deco.d1 { font-size: 3.2rem; bottom: -4px; }
-      .cover-deco.d2 { font-size: 2rem; top: 12px; right: 5%; }
-
-      .profile-icon { width: 64px; height: 64px; font-size: 2rem; margin-top: -32px; }
-      .profile-name { font-size: 1.45rem; margin-top: 12px; }
-      .profile-tagline { font-size: 0.8rem; }
-
-      .callout { padding: 12px 14px; font-size: 0.84rem; gap: 10px; }
-      .callout-emoji { font-size: 1.2rem; }
-
-      h2.section-h { font-size: 0.92rem; margin: 36px 0 12px; }
-
-      /* noteカード：縦並び */
-      .note-item { flex-direction: column; gap: 10px; padding: 12px; }
-      .note-thumb {
-        width: 100%;
-        height: 140px;
-        font-size: 2.8rem;
-        border-radius: 6px;
-      }
-      .note-title { font-size: 0.88rem; -webkit-line-clamp: 3; }
-      .note-desc  { font-size: 0.76rem; }
-      .note-price { font-size: 0.82rem; }
-
-      /* SNSリンク */
-      .sns-link { padding: 10px 12px; font-size: 0.84rem; }
-      .sns-icon { width: 32px; height: 32px; font-size: 1rem; border-radius: 6px; }
-      .sns-label-name { font-size: 0.84rem; }
-      .sns-label-sub  { font-size: 0.7rem; }
-
-      /* 実績カード */
-      .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .stat-card { padding: 14px 10px; }
-      .stat-num  { font-size: 1.4rem; }
-      .stat-label { font-size: 0.7rem; }
-
-      /* テキスト系 */
-      .profile-body { font-size: 0.84rem; }
-      .catch-list li  { font-size: 0.84rem; }
-      .target-list li { font-size: 0.84rem; padding: 8px 12px; }
-
-      footer { padding: 20px 16px 40px; font-size: 0.72rem; }
-    }
-
-    /* ─── RESPONSIVE: 極小スマホ (〜375px) ─── */
-    @media (max-width: 375px) {
-      .profile-name { font-size: 1.25rem; }
-      .note-thumb { height: 110px; }
-      .stat-num { font-size: 1.2rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>るナース | 現役看護師 × AI・note収益化</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#3b82f6', // Blue-500
+                        secondary: '#10b981', // Emerald-500
+                        accent: '#f43f5e', // Rose-500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* スクロール時のフェードインアニメーション用クラス */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 背景のグラデーション装飾 */
+        .bg-blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden relative">
 
-<!-- ─── NAV ─── -->
-<nav class="nav">
-  <a href="#top" class="nav-logo">るナース 🏥</a>
-  <button class="hamburger" id="hamburger" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+    <!-- 背景装飾 -->
+    <div class="bg-blob bg-blue-300 w-96 h-96 rounded-full top-[-10%] left-[-10%]"></div>
+    <div class="bg-blob bg-emerald-200 w-80 h-80 rounded-full top-[20%] right-[-10%]"></div>
 
-<!-- モバイルメニュー -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#top"        onclick="closeMenu()">Top</a>
-  <a href="#note-gallery" onclick="closeMenu()">Note</a>
-  <a href="#sns"        onclick="closeMenu()">SNS</a>
-  <a href="#about"      onclick="closeMenu()">About</a>
-</div>
-
-<!-- ─── COVER ─── -->
-<div class="cover">
-  <img class="cover-img" src="image/hero.jpg" alt="るナース カバー画像"
-       onerror="this.style.display='none'">
-</div>
-
-<!-- ─── PAGE ─── -->
-<div class="page">
-
-  <!-- プロフィールヘッダー -->
-  <div class="profile-header fade">
-    <div class="profile-icon">
-      <img src="image/hero.jpg" alt="るナース">
-    </div>
-    <h1 class="profile-name">るナースと申します</h1>
-    <p class="profile-tagline">現役看護師 ／ noteクリエイター ／ AI×note収益化</p>
-  </div>
-
-  <!-- キャッチコピー callout -->
-  <div class="callout fade">
-    <span class="callout-emoji">✍️</span>
-    <div>
-      <strong>AI×note、開始5日で初収益。</strong><br>
-      忙しい看護師でもAI×noteで収益化できた！その方法すべてnoteに書いてます。
-    </div>
-  </div>
-
-  <!-- ─── noteギャラリー ─── -->
-  <h2 class="section-h fade">📓 noteギャラリー</h2>
-  <div class="note-gallery">
-
-    <!-- 自己紹介記事 -->
-    <a href="https://note.com/runa_ai_vlog/n/n9d0df6546026"
-       class="note-item fade" target="_blank" rel="noopener">
-      <div class="note-thumb">
-        <img src="https://assets.st-note.com/production/uploads/images/223199777/rectangle_large_type_2_85660211706dd3a6a1942921f76514f1.png?width=1280" alt="自己紹介note">
-      </div>
-      <div class="note-info">
-        <div class="note-tags">
-          <span class="tag intro">自己紹介</span>
-          <span class="tag free">無料</span>
+    <!-- Header / Navigation -->
+    <header class="fixed w-full top-0 bg-white/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-slate-800 tracking-wider">
+                るナース<span class="text-primary">.</span>
+            </a>
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-primary transition">About</a>
+                <a href="#contents" class="hover:text-primary transition">Contents</a>
+                <a href="#contact" class="hover:text-primary transition">Contact</a>
+            </nav>
         </div>
-        <div class="note-title">はじめまして、るナースです｜現役看護師がAI×noteを始めた理由</div>
-        <div class="note-desc">看護師10年、AIと出会って変わった私のこと。noteを始めたきっかけをまとめました。</div>
-      </div>
-    </a>
+    </header>
 
-    <!-- 有料note① -->
-    <a href="https://note.com/ru_nurse/n/n48303b5f6ddb"
-       class="note-item fade" target="_blank" rel="noopener">
-      <div class="note-thumb">
-        <img src="https://assets.st-note.com/production/uploads/images/271509993/rectangle_large_type_2_946e59eca0033bdae707e135f9040a83.png?width=1280" alt="有料note①">
-      </div>
-      <div class="note-info">
-        <div class="note-tags">
-          <span class="tag paid">有料</span>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 min-h-[80vh] flex items-center justify-center relative">
+        <div class="max-w-4xl mx-auto text-center fade-in-up">
+            <!-- プロフィール画像 -->
+            <div class="relative w-32 h-32 mx-auto mb-6">
+                <img src="./image/hero.jpg" 
+                     alt="るナースのプロフィール画像" 
+                     class="rounded-full w-full h-full object-cover shadow-lg border-4 border-white">
+                <div class="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-md text-secondary">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+            </div>
+
+            <h2 class="text-lg md:text-xl text-primary font-medium mb-2 tracking-widest">現役看護師</h2>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-800">
+                るナース
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-600 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
+                AI×note、開始5日で初収益。<br class="hidden md:block">
+                現役看護師が教えるnote収益化。
+            </p>
+            
+            <div class="flex justify-center gap-4">
+                <a href="#contact" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition shadow-md shadow-blue-200">
+                    お問い合わせ
+                </a>
+                <a href="#about" class="bg-white hover:bg-slate-50 text-slate-700 px-8 py-3 rounded-full font-medium transition shadow-sm border border-slate-200">
+                    詳しく見る
+                </a>
+            </div>
         </div>
-        <div class="note-title">有料noteタイトルをここに入力してください</div>
-        <div class="note-desc">記事の説明文をここに入力してください。どんな内容が読めるか読者に伝わるように書きましょう。</div>
-        <div class="note-price">¥〇〇〇</div>
-      </div>
-    </a>
+    </section>
 
-    <!-- 有料note② -->
-    <a href="https://note.com/ru_nurse/n/nc6983c10838d"
-       class="note-item fade" target="_blank" rel="noopener">
-      <div class="note-thumb">
-        <img src="https://assets.st-note.com/production/uploads/images/275798982/rectangle_large_type_2_3b675db2689de85003b2b94e62a97c7e.png?width=1280" alt="有料note②">
-      </div>
-      <div class="note-info">
-        <div class="note-tags">
-          <span class="tag paid">有料</span>
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-white">
+        <div class="max-w-4xl mx-auto fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 inline-block relative">
+                    About Me
+                    <span class="absolute bottom-1 left-0 w-full h-3 bg-blue-100 -z-10 transform -rotate-1"></span>
+                </h2>
+            </div>
+            
+            <div class="bg-slate-50 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 items-center">
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <div class="w-40 h-40 bg-blue-50 rounded-full flex items-center justify-center text-5xl text-primary">
+                        <i class="fas fa-user-nurse"></i>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3 text-slate-700 leading-relaxed md:text-lg">
+                    <p class="mb-4">
+                        フルタイム看護師をしながら、<br>
+                        AIを使ってnoteで副業をしています。
+                    </p>
+                    <p class="mb-4">
+                        noteは自分の経験を価値に変えて<br>
+                        販売することができます✨
+                    </p>
+                    <p class="mb-4">
+                        あなたにとって当たり前のことが、<br>
+                        誰かにとってはお金を払ってでも<br>
+                        知りたい情報かもしれません。
+                    </p>
+                    <p>
+                        noteで一緒に始めてみませんか？
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="note-title">有料noteタイトルをここに入力してください</div>
-        <div class="note-desc">記事の説明文をここに入力してください。どんな内容が読めるか読者に伝わるように書きましょう。</div>
-        <div class="note-price">¥〇〇〇</div>
-      </div>
-    </a>
+    </section>
 
-    <!-- オプチャ紹介note -->
-    <a href="https://note.com/runa_ai_vlog/n/n8622f3aa25c4"
-       class="note-item fade" target="_blank" rel="noopener">
-      <div class="note-thumb">👥</div>
-      <div class="note-info">
-        <div class="note-tags">
-          <span class="tag free">無料</span>
+    <!-- Contents Section -->
+    <section id="contents" class="py-20 px-6 relative">
+        <div class="max-w-4xl mx-auto fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 inline-block relative">
+                    Contents
+                    <span class="absolute bottom-1 left-0 w-full h-3 bg-emerald-100 -z-10 transform rotate-1"></span>
+                </h2>
+                <p class="mt-4 text-slate-600">発信している情報・読んでほしい方</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Content 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <span class="text-2xl">💡</span> こんな情報を発信しています
+                    </h3>
+                    <ul class="space-y-4 text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-primary mt-1"></i>
+                            <span class="leading-relaxed">AI×noteで収益化した実体験とノウハウ</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-primary mt-1"></i>
+                            <span class="leading-relaxed">忙しい看護師でも続けられる副業の始め方</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-primary mt-1"></i>
+                            <span class="leading-relaxed">失敗から学んだnote収益化のリアルな手順</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-primary mt-1"></i>
+                            <span class="leading-relaxed">threadsとnoteをつなぐSNS運用の方法</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Content 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <span class="text-2xl">🌱</span> こんな方に読んでほしい
+                    </h3>
+                    <ul class="space-y-4 text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-secondary mt-1"></i>
+                            <span class="leading-relaxed">副業を始めたいけど何から始めればいいかわからない方</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-secondary mt-1"></i>
+                            <span class="leading-relaxed">忙しくて時間がないけど収入を増やしたい方</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-secondary mt-1"></i>
+                            <span class="leading-relaxed">自分の経験を価値に変えてnoteで販売したい方</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-secondary mt-1"></i>
+                            <span class="leading-relaxed">AIを使って効率よく発信・収益化したい方</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="note-title">オープンチャットのご紹介</div>
-        <div class="note-desc">るナースのコミュニティについてご紹介しています。ぜひ参加してください！</div>
-      </div>
-    </a>
+    </section>
 
-  </div><!-- /note-gallery -->
+    <!-- Contact & Links Section -->
+    <section id="contact" class="py-20 px-6 bg-white">
+        <div class="max-w-3xl mx-auto text-center fade-in-up">
+            <h2 class="text-3xl font-bold text-slate-800 mb-8">Follow & Contact</h2>
+            <p class="text-slate-600 mb-10">
+                発信内容に興味を持っていただけましたら、ぜひSNSのフォローをお願いします。<br>
+                お仕事のご依頼やご相談はDM等からお気軽にどうぞ。
+            </p>
 
-  <!-- ─── SNSリンク ─── -->
-  <h2 class="section-h fade">🔗 SNSリンク</h2>
-  <div class="sns-list">
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- note Link -->
+                <a href="https://note.com/runa_ai_vlog/all?sort=latest" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-center gap-3 bg-white border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-slate-700 px-8 py-4 rounded-xl transition group">
+                    <span class="w-8 h-8 bg-emerald-500 text-white rounded flex items-center justify-center font-bold text-sm group-hover:scale-110 transition-transform">n</span>
+                    <span class="font-bold">noteを読む</span>
+                </a>
+                
+                <!-- Threads Link -->
+                <a href="https://www.threads.com/@runurse_aivlog" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-center gap-3 bg-white border-2 border-slate-200 hover:border-black hover:bg-slate-50 text-slate-700 px-8 py-4 rounded-xl transition group">
+                    <i class="fa-brands fa-threads text-2xl text-black group-hover:scale-110 transition-transform"></i>
+                    <span class="font-bold">threads</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <a href="https://note.com/runa_ai_vlog"
-       class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon note">📓</div>
-      <div class="sns-label">
-        <div class="sns-label-name">note</div>
-        <div class="sns-label-sub">@runa_ai_vlog</div>
-      </div>
-      <span class="sns-arrow">›</span>
-    </a>
+    <!-- Footer -->
+    <footer class="bg-slate-50 py-8 text-center border-t border-slate-200">
+        <p class="text-slate-500 text-sm">
+            &copy; <script>document.write(new Date().getFullYear())</script> るナース. All rights reserved.
+        </p>
+    </footer>
 
-    <a href="https://www.threads.com/@runurse_aivlog"
-       class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon threads">@</div>
-      <div class="sns-label">
-        <div class="sns-label-name">Threads</div>
-        <div class="sns-label-sub">@runurse_aivlog</div>
-      </div>
-      <span class="sns-arrow">›</span>
-    </a>
+    <!-- スクロールアニメーション用スクリプト -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- スクロールアニメーションの制御 ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
 
-    <!-- 公式LINE -->
-    <a href="https://lin.ee/Umcu8OY"
-       class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon line">💬</div>
-      <div class="sns-label">
-        <div class="sns-label-name">公式LINE</div>
-        <div class="sns-label-sub">友だち追加はこちら</div>
-      </div>
-      <span class="sns-arrow">›</span>
-    </a>
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // 一度表示されたら監視を解除
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-    <!-- オープンチャット -->
-    <a href="https://line.me/ti/g2/_BYZYgT4QPwpEmfghIO96BBBXn3DG6FRc8IxfA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
-       class="sns-link fade" target="_blank" rel="noopener">
-      <div class="sns-icon openchat">👥</div>
-      <div class="sns-label">
-        <div class="sns-label-name">オープンチャット</div>
-        <div class="sns-label-sub">コミュニティに参加</div>
-      </div>
-      <span class="sns-arrow">›</span>
-    </a>
-
-  </div>
-
-  <!-- ─── るナース | 実績 ─── -->
-  <h2 class="section-h fade">📊 るナース｜実績</h2>
-  <div class="stats-row fade">
-    <div class="stat-card">
-      <div class="stat-num">5日</div>
-      <div class="stat-label">note開始から<br>初収益まで</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">¥19,800</div>
-      <div class="stat-label">高単価記事<br>販売成功</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">4ヶ月</div>
-      <div class="stat-label">継続運用</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">10年</div>
-      <div class="stat-label">現役看護師<br>としての経験</div>
-    </div>
-  </div>
-
-  <!-- ─── 自己紹介 ─── -->
-  <h2 class="section-h fade">🙋 自己紹介</h2>
-  <div class="profile-body fade">
-    <p>
-      現役看護師として10年間、患者さんや家族に寄り添ってきました。<br>
-      AIと出会い、「わかりやすく伝える力」を武器にnoteでの収益化に挑戦。
-    </p>
-    <p>
-      SNSでの発信ゼロからスタート、ライティングやマーケティングの専門知識ゼロに近い状況から始めましたが「毎日コツコツ継続」という信念で状況を打開し、看護師の専門性を活かしたコンテンツを発信しています。
-    </p>
-    <p>
-      同じくSNS発信の方に、noteを中心に毎日実践できる発信方法、活用法、設計について共有しています。
-    </p>
-  </div>
-
-  <!-- できること -->
-  <h2 class="section-h fade">✅ るナース｜できること</h2>
-  <ul class="catch-list fade">
-    <li>AI×noteを使った収益化ノウハウの共有</li>
-    <li>医療・看護知識をわかりやすく言語化・発信</li>
-    <li>忙しい医療従事者でもできる継続発信の設計</li>
-    <li>note×Threads連動の運用メソッド公開</li>
-  </ul>
-
-  <!-- 発信対象 -->
-  <h2 class="section-h fade">🎯 発信対象</h2>
-  <ul class="target-list fade">
-    <li>看護師・医療従事者でnoteを始めたい方</li>
-    <li>AIを使った発信・収益化に興味がある方</li>
-    <li>忙しくて時間がないけど副業を始めたい方</li>
-    <li>noteでの商品販売まで発展させたい方</li>
-  </ul>
-
-</div><!-- /page -->
-
-<footer>
-  © 2025 るナース. All rights reserved.
-</footer>
-
-<script>
-  // ハンバーガーメニュー
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-  function closeMenu() {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-  }
-
-  // スクロールリビール
-  const fades = document.querySelectorAll('.fade');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('in'), i * 40);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  fades.forEach(el => io.observe(el));
-</script>
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
